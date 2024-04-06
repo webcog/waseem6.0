@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="section-content padding-y bg">
+    <div class="container">
+        <h4 class="text-center mb-10">Review your Order and Make Payment</h4>
+        <div class="row">
+            <aside class="col-lg-8">
+                <!-- Existing code for Billing Address, Payment Method, and Review Products -->
+
+            </aside> <!-- col.// -->
+            <aside class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <dl class="dlist-align">
+                            <dt>Total price:</dt>
+                            <dd class="text-right">${{ total }}</dd>
+                        </dl>
+                        <dl class="dlist-align">
+                            <dt>Tax:</dt>
+                            <dd class="text-right"> ${{ tax }}</dd>
+                        </dl>
+                        <dl class="dlist-align">
+                            <dt>Total:</dt>
+                            <dd class="text-right text-dark b"><strong>${{ grand_total }}</strong></dd>
+                        </dl>
+                        <hr>
+                        <p class="text-center mb-3">
+                            <img src="{% static './images/misc/payments.png' %}" height="26">
+                        </p>
+                        <form id="stripe-form">
+                            <div id="card-element">
+                                <!-- A Stripe Element will be inserted here. -->
+                            </div>
+                            <!-- Used to display form errors. -->
+                            <div id="card-errors" role="alert"></div>
+                            <button type="submit" class="btn btn-primary btn-block">Submit Payment</button>
+                        </form>
+                    </div> <!-- card-body.// -->
+                </div> <!-- card.// -->
+            </aside> <!-- col.// -->
+        </div> <!-- row.// -->
+    </div> <!-- container .//  -->
+</section>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    var amount = "{{ grand_total }}"
+    var url = "{% url 'payments' %}"
+    var csrftoken = getCookie('csrftoken');
+    var orderID = "{{ order.order_number }}"
+    var payment_method = 'Stripe'
+    var redirect_url = "{% url 'order_complete' %}"
+
+    var stripe = Stripe('pk_test_51OVv7aBWwkgDef7RG3WV0fgfgC31jrlG6hOB3Wgri1DkkNi9HJOjXT0IWWlEMibf6WfW2ysNBMp0PH8WIgupxfmB00avD4bmYN');
+
+    // Create an instance of Stripe Elements and mount it to the #card-element
+    var elements = stripe.elements();
+    var cardElement = elements.create('card');
+    cardElement.mount('#card-element');
+
+    // Handle real-time validation errors from the card Element.
+    cardElement.addEventListener('change', function(event) {
+        var displayError = document.getElementById('card-errors');
+        if (event.error) {
+            displayError.textContent = event.error.message;
+        } else {
+            displayError.textContent = '';
+        }
+    });
+
+    // Render the Stripe payment form
+    document.getElementById('stripe-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Create a payment method using the card Element
+        stripe.createPaymentMethod({
+            type: 'card',
+            card: cardElement,
+        }).then(function(result) {
+            if (result.error) {
+                // Handle errors (e.g., card validation errors)
+                var errorElement = document.getElementById('card-errors');
+                errorElement.textContent = result.error.message;
+            } else {
+                // Send the payment method ID to your server
+                sendData(result.paymentMethod.id);
+            }
+        });
+    });
+
+    function sendData(paymentMethodId) {
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({
+                orderID: orderID,
+                payment_method: payment_method,
+                payment_method_id: paymentMethodId,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            window.location.href = redirect_url + '?order_number=' + data.order_number;
+        });
+    }
+</script>
+{% endblock %}

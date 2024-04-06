@@ -1,0 +1,754 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<!-- Meta -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="keywords" content="MediaCenter, Template, eCommerce">
+<meta name="robots" content="all">
+<title>{% block title %}{% endblock title %} - Tie</title>
+
+<!-- Bootstrap Core CSS -->
+<link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+
+<!-- Customizable CSS -->
+<link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/blue.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/owl.carousel.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/owl.transitions.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/rateit.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/bootstrap-select.min.css' %}">
+<link href="{% static 'assets/css/lightbox.css' %}" rel="stylesheet">
+
+<!-- Icons/Glyphs -->
+<link rel="stylesheet" href="{% static 'assets/css/font-awesome.css' %}">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Barlow:200,300,300i,400,400i,500,500i,600,700,800" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,600italic,700,700italic,800' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+</head>
+<body class="cnt-home">
+
+
+
+{% include "includes/navbar.html" %}
+
+    <div class="body-content outer-top-xs">
+        <div class='container'>
+            <div class='row single-product'>
+                <div class='col-xs-12 col-sm-12 col-md-3 sidebar'>
+                    <div class="sidebar-module-container">
+                   	
+      
+        
+        
+    
+    <!-- ============================================== NEWSLETTER ============================================== -->
+    <div class="sidebar-widget newsletter outer-bottom-small outer-top-vs">
+        <h3 class="section-title">Newsletters</h3>
+        <div class="sidebar-widget-body outer-top-xs">
+            <p>Sign Up for Our Newsletter!</p>
+            <form>
+                 <div class="form-group">
+                    <label class="sr-only" for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Subscribe to our newsletter">
+                  </div>
+                <button type="button" class="btn btn-primary">Subscribe</button>
+            </form>
+        </div><!-- /.sidebar-widget-body -->
+    </div><!-- /.sidebar-widget -->
+    <!-- ============================================== NEWSLETTER: END ============================================== -->
+    
+    <!-- ============================================== Testimonials============================================== -->
+    
+        
+    <!-- ============================================== Testimonials: END ============================================== -->
+    
+     
+    
+                    </div>
+                </div><!-- /.sidebar -->
+          
+                <div class='col-xs-12 col-sm-12 col-md-9 rht-col'>
+                <div class="detail-block">
+                    <div class="row">
+                    
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 gallery-holder">
+                            <div class="product-item-holder size-big single-product-gallery small-gallery">
+                        
+                                <!-- Main product image -->
+                                <div id="owl-single-product">
+                                    <div class="single-product-gallery-item" id="slide1">
+                                        <a data-lightbox="image-1" data-title="Gallery" href="{{ single_product.images.url }}">
+                                            <img class="img-responsive main-product-image" alt="" src="{{ single_product.images.url }}" />
+
+                                        </a>
+                                    </div>
+                                </div>
+                        
+                                <!-- Thumbnail images -->
+                                <div class="single-product-gallery-thumbs gallery-thumbs">
+                                    <div id="owl-single-product-thumbnails">
+                                        <div class="item">
+                                            <a class="horizontal-thumb {% if forloop.first %}active{% endif %}"
+                                               data-target="#owl-single-product" data-slide="main"
+                                               href="#slidemain"
+                                               data-large-image="{{ single_product.images.url }}"> <!-- Add data-large-image attribute to store the large image URL -->
+                                                <img class="img-responsive" alt="" src="{{ single_product.images.url }}" />
+                                            </a>
+                                        </div>
+                                        <div class="item">
+                                            <a class="horizontal-thumb {% if forloop.first %}active{% endif %}"
+                                               data-target="#owl-single-product" data-slide="main"
+                                               href="#slidemain_hover"
+                                               data-large-image="{{ single_product.images.url }}"> <!-- Add data-large-image attribute to store the large image URL -->
+                                                <img class="img-responsive" alt="" src="{{ single_product.images_hover.url }}" />
+                                            </a>
+                                        </div>
+                                        {% for gallery_image in product_gallery %}
+                                            <div class="item">
+                                                <a class="horizontal-thumb {% if forloop.first %}active{% endif %}"
+                                                   data-target="#owl-single-product" data-slide="{{ forloop.counter }}"
+                                                   href="#slide{{ forloop.counter }}"
+                                                   data-large-image="{{ gallery_image.image.url }}"> <!-- Add data-large-image attribute to store the large image URL -->
+                                                    <img class="img-responsive" alt="" src="{{ gallery_image.image.url }}" />
+                                                </a>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+                                <script>
+                                    $(document).ready(function() {
+                                        // Handle click event on thumbnail images
+                                        $('.horizontal-thumb').on('click', function(e) {
+                                            e.preventDefault();
+                                    
+                                            // Update the main product image source and data-title using the clicked thumbnail's data-large-image and alt attributes
+                                            var largeImage = $(this).data('large-image');
+                                            var title = $(this).find('img').attr('alt');
+                                    
+                                            $('.main-product-image').attr('src', largeImage);
+                                            $('.main-product-image').attr('data-title', title);
+                                    
+                                            // You can also update any lightbox or other features you might have
+                                            // Example: Trigger lightbox to display the clicked image
+                                            $('[data-lightbox="image-1"]').attr('href', largeImage);
+                                            $('[data-lightbox="image-1"]').attr('data-title', title);
+                                        });
+                                    });
+                                    </script>
+                        
+                            </div>
+                        </div>
+                        	<form  id="add-to-cart-form" action="{% url 'add_cart' single_product.id %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="color" id="selected-color">
+                                <input type="hidden" name="size" id="selected-size">
+                        <div class='col-sm-12 col-md-8 col-lg-8 product-info-block'>
+                            <div class="product-info">
+                                <h1 class="name">{{single_product.product_name}}</h1>
+                                
+                                <div class="rating-reviews m-t-20">
+                                    <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="pull-left">
+                                            <div class="">
+                                                <i class="fa fa-star{% if single_product.average_review < 0.5 %}-o{% elif single_product.average_review >= 0.5 and single_product.average_review < 1%}-half-o{% endif %}"
+                                                    aria-hidden="true"></i>
+                                                <i class="fa fa-star{% if single_product.average_review < 1.5 %}-o{% elif single_product.average_review >= 1.5 and single_product.average_review < 2%}-half-o{% endif %}"
+                                                    aria-hidden="true"></i>
+                                                <i class="fa fa-star{% if single_product.average_review < 2.5 %}-o{% elif single_product.average_review >= 2.5 and single_product.average_review < 3%}-half-o{% endif %}"
+                                                    aria-hidden="true"></i>
+                                                <i class="fa fa-star{% if single_product.average_review < 3.5 %}-o{% elif single_product.average_review >= 3.5 and single_product.average_review < 4%}-half-o{% endif %}"
+                                                    aria-hidden="true"></i>
+                                                <i class="fa fa-star{% if single_product.average_review < 4.5 %}-o{% elif single_product.average_review >= 4.5 and single_product.average_review < 5%}-half-o{% endif %}"
+                                                    aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                        <div class="pull-left">
+                                            <div class="reviews">
+                                                <a href="#" class="lnk">({{ single_product.count_review }}  Reviews)</a>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div><!-- /.row -->		
+                                </div><!-- /.rating-reviews -->
+    
+                                <div class="stock-container info-container m-t-10">
+                                    <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="pull-left">
+                                            <div class="stock-box">
+                                                <span class="label">Availability :</span>
+                                            </div>	
+                                        </div>
+                                        <div class="pull-left">
+                                            <div class="stock-box">
+                                                {% if single_product.stock <= 0 %} 
+                                                <span class="value">Out Of Stock</span>
+                                                {% else %}
+                                                <span class="value">In Stock</span>
+                                                {% endif %}
+                                            </div>	
+                                        </div>
+                                        </div>
+                                    </div><!-- /.row -->	
+                                </div><!-- /.stock-container -->
+    
+                                <div class="description-container m-t-20">
+                                    <p>
+                                        {{single_product.description}}
+                                    </p>
+                                </div><!-- /.description-container -->
+    
+                                <div class="price-container info-container m-t-30">
+                                    <div class="row">
+                                        
+    
+                                        <div class="col-sm-6 col-xs-6">
+                                            <div class="price-box">
+                                                {% if single_product.stock <= 0 %} 
+                                                
+                                                <span class="price">Out of Stock</span>
+                                                {% else %}
+                                                <span class="price">PKR {{single_product.price}}</span>
+                                                <span class="price-strike">{{single_product.discount_price}} PKR</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+    
+                                     
+    
+                                    </div><!-- /.row -->
+                                </div><!-- /.price-container -->
+
+
+
+
+
+
+
+<div class="">
+    
+
+
+                                {% if colors %}
+                               
+                                <div class="row">
+                                    <div class="item-option-select">
+                                        <h6>Choose Color</h6>
+                                        <div class="variation-options" style="display: flex;flex-direction: row; justify-content: left; align-items: center;">
+                                            {% for color in colors %}
+                                                <div class="variation-option color-option"
+                                                     style="width: 30px; height: 30px;background-color: {{ color.variation_value }}; border: 2px solid black; margin-right:7px !important;"
+                                                     data-variation-type="color"
+                                                     data-variation-value="{{ color.variation_value | lower }}"
+                                                     onclick="selectVariation(this)"
+                                                ></div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                
+                            {% if sizes %}
+                                <div class="row">
+                                    <div class="item-option-select">
+                                        <h6>Choose Size</h6>
+                                        <div class="variation-options" style="display: flex;flex-direction: row; justify-content: left; align-items: center;">
+                                          
+                                                {% for size in sizes %}
+                                                <div class="variation-option size-option"
+                                                style="width: 30px; height: 30px; border: 1px solid black; text-align: center; line-height: 30px;margin-right: 7px !important;"
+                                                data-variation-type="size"
+                                                data-variation-value="{{ size.variation_value | lower }}"
+                                                onclick="selectVariation(this)"
+                                                >
+                                                {{ size.variation_value | capfirst }}
+                                            </div>
+                                            {% endfor %}
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                
+</div>
+             
+                
+             
+                    <br>
+                                    <div style="color: black;text-decoration: none;cursor: pointer;">
+                                        <a data-toggle="modal" data-target="#sizeChart">
+                                            <i class='fa fa-sort-numeric-asc fa-lg'></i> Size Chart
+                                        </a>
+
+
+                                        <div class="modal fade" id="sizeChart" role="dialog">
+                                            <div class="modal-dialog">
+                                            
+                                              <!-- Modal content-->
+                                              <div class="modal-content">
+                                                <div class="modal-header">
+                                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                  <h4 class="modal-title">Size Chart</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="">
+                                                        <div class="text-center">
+
+                                                            <button type="button" style="justify-content: center;background: transparent; border: 1px solid black;padding: 7px;" id="convertButton" onclick="convertUnits()">See in Centimeters</button>                                                        <div class="row">
+                                                        </div>
+                                                            <div class="col-xs-12">
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-hover table-striped" style="overflow: hidden;padding: 1px;">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th style="text-align: center;">SIZE</th>
+                                                                                <th style="text-align: center;">WAIST</th>
+                                                                                <th style="text-align: center;">LENGTH</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            {% for size in size_chart %}
+                                                                            {% for i in size.sizes_set.all %}
+                                                                            <tr>
+                                                                                <td style="text-align: center;">{{ i.size }}</td>
+                                                                                <td style="text-align: center;" class="inch-value">{{ i.waist }}</td>
+                                                                                <td style="text-align: center;" class="inch-value">{{ i.length }}</td>
+                                                                            </tr>
+                                                                            {% endfor %}
+                                                                            {% endfor %}
+                                                                            <script>
+                                                                                
+                                                                                function convertUnits() {
+        var inchElements = document.getElementsByClassName("inch-value");
+        var convertButton = document.getElementById("convertButton");
+
+        // Check if the button text is "Convert to Centimeters"
+        if (convertButton.textContent === "See in Centimeters") {
+            // Convert inch values to centimeters
+            for (var i = 0; i < inchElements.length; i++) {
+                var inchValue = inchElements[i].innerText;
+                var inchRange = inchValue.split(" - ");
+
+                if (inchRange.length > 1) {
+                    var cmRange = inchRange.map(function(val) {
+                        return (parseFloat(val) * 2.54).toFixed(1); // Convert to centimeters with one decimal point
+                    });
+                    inchElements[i].innerText = cmRange.join(" - ");
+                } else {
+                    var cmValue = (parseFloat(inchValue) * 2.54).toFixed(1); // Convert to centimeters with one decimal point
+                    inchElements[i].innerText = cmValue;
+                }
+            }
+            // Change button text to "Convert to Inches"
+            convertButton.textContent = "See in  Inches";
+        } else { // If the button text is "Convert to Inches"
+            // Convert centimeter values to inches
+            for (var i = 0; i < inchElements.length; i++) {
+                var cmValue = inchElements[i].innerText;
+                var cmRange = cmValue.split(" - ");
+
+                if (cmRange.length > 1) {
+                    var inchRange = cmRange.map(function(val) {
+                        return Math.round(parseFloat(val) / 2.54); // Convert to inches and round to the nearest whole number
+                    });
+                    inchElements[i].innerText = inchRange.join(" - ");
+                } else {
+                    var inchValue = Math.round(parseFloat(cmValue) / 2.54); // Convert to inches and round to the nearest whole number
+                    inchElements[i].innerText = inchValue;
+                }
+            }
+            // Change button text to "Convert to Centimeters"
+            convertButton.textContent = "See in Centimeters";
+        }
+    }
+                                                                        
+                                                                            </script>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="container">
+                                                    
+                                                        {% for i in size_chart|slice:"0:1" %}
+                                                        
+                                                        {% for u in i.sizechartimage_set.all %}
+                                                        
+                                                        <img src="{{u.image.url}}" class="img-responsive" alt="{{u.name}}">
+                                                        
+                                                        {% endfor %}
+                                                        {% endfor %}
+                                                    
+                                                    </div>
+                                                    <hr>
+
+                                                    <ol>
+                                                        {% for chart in size_chart|slice:"0:1" %}
+
+                                                        {% for field_data in chart.fielddata_set.all %}
+                                                        <li>
+                                                           {{ field_data.field }}
+                                                        </li>
+                                                        {% endfor %}
+                                                        {% endfor %}
+
+                                                       
+                                                    </ol>
+
+                                                    <hr>
+
+                                                    
+
+                                                    
+
+
+                                                <div class="">
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                <div class="table-responsive">
+                                                                    <table class="table" style="overflow: hidden;padding: 1px;">
+                                                                        <thead>
+                                                                            <tr >
+                                                                                <th style="text-align: center;">US/UK Size</th>
+                                                                                <th style="text-align: center;">XS</th>
+                                                                                <th style="text-align: center;">S</th>
+                                                                                <th style="text-align: center;">M</th>
+                                                                                <th style="text-align: center;">L</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            
+                                                                            <tr>
+                                                                                <th style="text-align: center;">Size on label</th>
+                                                                                <td style="text-align: center;">M</td>
+                                                                                <td style="text-align: center;">L</td>
+                                                                                <td style="text-align: center;">XL</td>
+                                                                                <td style="text-align: center;">XXL</td>
+                                                                            </tr>
+                                                                           
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <p><i>
+                                                        Sizes can vary from 2-3 centimeters because they are measured by hand. 1inch=2.54cm The size matched on a label can differ from the one you have ordered 
+                                                    </i></p>
+                                                
+                                                </div>
+                                                <div class="modal-footer">
+                                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                              </div>
+                                              
+                                            </div>
+                                          </div>
+                                    </div>
+                               
+                                <div class="" style="margin-top: 15px;cursor: pointer;">
+                                    <button id="add-to-cart-btn" disabled style="background: #ffe600;color: black;cursor: pointer !important;padding: 10px 30px;" type="submit"  class="btn btn-primary"><i class="fa fa-shopping-cart inner-right-vs"></i> Buy Now</button>
+                                </div>
+
+                                <br>
+                               
+                                <div>
+                                    <ul>
+                                        <li>
+                                            <b>
+                                                <i class='fa fa-truck fa-lg'></i> Free Shipping
+                                            </b>
+                                        </li>
+                                        <li>
+                                            <ul style="margin-left: 20px;">
+                                                <li>Free standard shipping on orders over 2500</li>
+                                                <li>Estimated to be delivered on 3 Days.</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <style>
+                                    /* Center modal vertically and horizontally */
+                                    .modal-vertical-centered {
+                                        transform: translate(0, 50%);
+                                        top: 18%;
+                                    }
+                                  </style>
+                              <br>
+                                <div>
+                                    <ul style="cursor: pointer;" data-toggle="modal" data-target="#myModalSHipping">
+                                        <li>
+                                            <b>
+                                                <!-- <button type="button" class="btn btn-primary" >Open Modal</button> -->
+                                                <i class='fa fa-shield fa-lg'></i> Free Return <i class='fa fa-question-circle-o fa-lg'></i>
+                                            </b>
+                                        </li>
+                                        <li>
+                                            <ul style="margin-left: 20px;">
+                                                <li>Learn More</li>
+                                                
+                                            </ul>
+                                        </li>
+                                    </ul>
+
+                                    <div class="modal fade" id="myModalSHipping" role="dialog">
+                                        <div class="modal-dialog modal-vertical-centered">
+                                        
+                                          <!-- Modal content-->
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                              <h4 class="modal-title">Free Returns</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                              <p>You may return most new, unopened items within 7 days of delivery for a full refund. We'll also pay the return shipping costs if the return is a result of our error (you received an incorrect or defective item, etc.).</p>
+                                              <p>You should expect to receive your refund within 7days of giving your package to the return shipper, however, in many cases you will receive a refund more quickly. This time period includes the transit time for us to receive your return from the shipper (5 to 10 business days), the time it takes us to process your return once we receive it (3 to 5 business days), and the time it takes your bank to process our refund request (5 to 10 business days).</p>
+                                              <p>If you need to return an item, simply login to your account, view the order using the "Complete Orders" link under the My Account menu and click the Return Item(s) button. We'll notify you via e-mail of your refund once we've received and processed the returned item.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                          </div>
+                                          
+                                        </div>
+                                      </div>
+                                      
+                                    </div>
+
+
+                                </div>
+                                
+    
+                                
+                            </div><!-- /.product-info -->
+
+                          
+                       
+
+
+                       
+                    </div>
+
+                        </form>
+
+                      
+                        <style>
+                            .selected-variation {
+                                /* border-radius: 50px !important; */
+                                border-width: 4px !important;
+                                line-height: 24px !important;
+                            }
+                        </style>
+                        <script>
+                            function selectVariation(element) {
+                                const variationType = element.dataset.variationType;
+                                const variationValue = element.dataset.variationValue;
+                        
+                                // Remove previously selected variation of the same type
+                                document.querySelectorAll(`.${variationType}-option.selected-variation`).forEach(selectedVariation => {
+                                    selectedVariation.classList.remove('selected-variation');
+                                });
+                        
+                                // Add newly selected variation
+                                element.classList.add('selected-variation');
+                        
+                                // Update hidden input fields with selected variations
+                                document.getElementById(`selected-${variationType}`).value = variationValue;
+                        
+                                // Check if both color and size are selected
+                                const selectedColor = document.getElementById('selected-color').value;
+                                const selectedSize = document.getElementById('selected-size').value;
+                                const addToCartBtn = document.getElementById('add-to-cart-btn');
+                        
+                                if (selectedColor && selectedSize) {
+                                    addToCartBtn.removeAttribute('disabled');
+                                } else {
+                                    addToCartBtn.setAttribute('disabled', 'disabled');
+                                }
+                            }
+                        </script>
+                        
+
+                    <!-- /.col-sm-7 -->
+                    </div><!-- /.row -->
+                    </div>
+                    
+                    <div class="product-tabs inner-bottom-xs">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-3 col-lg-3">
+                                <ul id="product-tabs" class="nav nav-tabs nav-tab-cell">
+                                    <li class="active"><a data-toggle="tab" href="#description">DESCRIPTION</a></li>
+                                    <li><a data-toggle="tab" href="#review">REVIEW</a></li>
+                                </ul><!-- /.nav-tabs #product-tabs -->
+                            </div>
+                            <div class="col-sm-12 col-md-9 col-lg-9">
+    
+                                <div class="tab-content">
+                                    
+                                    <div id="description" class="tab-pane in active">
+                                        <div class="product-tab">
+                                            <p class="text">
+                                                {{single_product.description}}
+                                            </p>
+                                        </div>	
+                                    </div><!-- /.tab-pane -->
+    
+                                    <div id="review" class="tab-pane">
+                                        <div class="product-tab">
+                                                                                    
+                                            <div class="product-reviews">
+                                                <h4 class="title">Customer Reviews</h4>
+    
+                                                <div class="reviews">
+                                                    <div class="review">
+                                                        <div class="review-title"><span class="summary">We love this product</span><span class="date"><i class="fa fa-calendar"></i><span>1 days ago</span></span></div>
+                                                        <div class="text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit.Aliquam suscipit."</div>
+                                                                                                            </div>
+                                                
+                                                </div><!-- /.reviews -->
+                                            </div><!-- /.product-reviews -->
+                                            
+    
+                                            
+                                            <div class="product-add-review">
+                                                <h4 class="title">Write your own review</h4>
+                                                <div class="review-table">
+                                                    <div class="table-responsive">
+                                                        <table class="table">	
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="cell-label">&nbsp;</th>
+                                                                    <th>1 star</th>
+                                                                    <th>2 stars</th>
+                                                                    <th>3 stars</th>
+                                                                    <th>4 stars</th>
+                                                                    <th>5 stars</th>
+                                                                </tr>
+                                                            </thead>	
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="cell-label">Quality</td>
+                                                                    <td><input type="radio" name="quality" class="radio" value="1"></td>
+                                                                    <td><input type="radio" name="quality" class="radio" value="2"></td>
+                                                                    <td><input type="radio" name="quality" class="radio" value="3"></td>
+                                                                    <td><input type="radio" name="quality" class="radio" value="4"></td>
+                                                                    <td><input type="radio" name="quality" class="radio" value="5"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="cell-label">Price</td>
+                                                                    <td><input type="radio" name="quality" class="radio" value="1"></td>
+                                                                    <td><input type="radio" name="quality" class="radio" value="2"></td>
+                                                                    <td><input type="radio" name="quality" class="radio" value="3"></td>
+                                                                    <td><input type="radio" name="quality" class="radio" value="4"></td>
+                                                                    <td><input type="radio" name="quality" class="radio" value="5"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="cell-label">Value</td>
+                                                                    <td><input type="radio" name="quality" class="radio" value="1"></td>
+                                                                    <td><input type="radio" name="quality" class="radio" value="2"></td>
+                                                                    <td><input type="radio" name="quality" class="radio" value="3"></td>
+                                                                    <td><input type="radio" name="quality" class="radio" value="4"></td>
+                                                                    <td><input type="radio" name="quality" class="radio" value="5"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table><!-- /.table .table-bordered -->
+                                                    </div><!-- /.table-responsive -->
+                                                </div><!-- /.review-table -->
+                                                
+                                                <div class="review-form">
+                                                    <div class="form-container">
+                                                        <form class="cnt-form">
+                                                            
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputName">Your Name <span class="astk">*</span></label>
+                                                                        <input type="text" class="form-control txt" id="exampleInputName" placeholder="">
+                                                                    </div><!-- /.form-group -->
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputSummary">Summary <span class="astk">*</span></label>
+                                                                        <input type="text" class="form-control txt" id="exampleInputSummary" placeholder="">
+                                                                    </div><!-- /.form-group -->
+                                                                </div>
+    
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputReview">Review <span class="astk">*</span></label>
+                                                                        <textarea class="form-control txt txt-review" id="exampleInputReview" rows="4" placeholder=""></textarea>
+                                                                    </div><!-- /.form-group -->
+                                                                </div>
+                                                            </div><!-- /.row -->
+                                                            
+                                                            <div class="action text-right">
+                                                                <button class="btn btn-primary btn-upper">SUBMIT REVIEW</button>
+                                                            </div><!-- /.action -->
+    
+                                                        </form><!-- /.cnt-form -->
+                                                    </div><!-- /.form-container -->
+                                                </div><!-- /.review-form -->
+    
+                                            </div><!-- /.product-add-review -->										
+                                            
+                                        </div><!-- /.product-tab -->
+                                    </div><!-- /.tab-pane -->
+    
+                                   
+                                </div><!-- /.tab-content -->
+                            </div><!-- /.col -->
+                        </div><!-- /.row -->
+                    </div><!-- /.product-tabs -->
+    
+      
+    <!-- ============================================== UPSELL PRODUCTS : END ============================================== -->
+                
+                </div><!-- /.col -->
+                <div class="clearfix"></div>
+            </div><!-- /.row -->
+            <!-- ============================================== BRANDS CAROUSEL ============================================== -->
+    
+    <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->	</div><!-- /.container -->
+    </div><!-- /.body-content -->
+    
+    <!-- ============================================================= FOOTER ============================================================= -->
+    
+            <!-- ============================================== INFO BOXES ============================================== -->
+            
+            <!-- /.info-boxes --> 
+            <!-- ============================================== INFO BOXES : END ============================================== --> 
+    
+    <!-- ============================================================= FOOTER ============================================================= -->
+  {% include "includes/footer.html" %}
+
+
+
+<script src="{% static 'assets/js/jquery-1.11.1.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap-hover-dropdown.min.js' %}"></script>
+<script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'assets/js/echo.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.easing-1.3.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap-slider.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.rateit.min.js' %}"></script>
+<script src="{% static 'assets/js/lightbox.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap-select.min.js' %}"></script>
+<script src="{% static 'assets/js/wow.min.js' %}"></script>
+<script src="{% static 'assets/js/scripts.js' %}"></script>
+</body>
+
+</html>

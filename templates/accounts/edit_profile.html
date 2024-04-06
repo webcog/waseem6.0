@@ -1,0 +1,68 @@
+{% extends 'baseThree.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<section class="section-conten padding-y bg">
+	{% include 'includes/alerts.html' %}
+	<div class="container">
+		<div class="row">
+			<main class="col-md-12">
+				<article class="card">
+					<header class="card-header" style="padding: 8px;margin-bottom: 10px;">
+                        <strong class="d-inline-block mr-3">Edit Your Profile:</strong>
+                        
+                    </header>
+					<div class="card-body">
+						<div class="text-right">
+							{% if userprofile.profile_picture %}
+							<img src="{{userprofile.profile_picture.url}}" alt="Profile Picture" width="100"
+								style="border-radius:50px;">
+							{% endif %}
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<form action="{% url 'edit_profile' %}" method="POST" enctype="multipart/form-data">
+									{% csrf_token %}
+									<div class="form-row">
+										<div class="form-group col-md-6">
+											<label>First Name</label>
+											<!-- {{ user_form.first_name }} -->
+											{% render_field user_form.first_name class="form-control unicase-form-control text-input" %}
+
+										</div>
+										<div class="form-group col-md-6">
+											<label>Last Name</label>
+											{% render_field user_form.last_name class="form-control unicase-form-control text-input" %}
+
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="form-group col-md-12">
+											<label>Phone number</label>
+											{% render_field user_form.phone_number class="form-control unicase-form-control text-input" %}
+
+										</div>
+										<div class="form-group col-md-12">
+											<label>Profile Picture</label>
+											{% render_field user_form.profile_picture class="form-control unicase-form-control text-input" %}
+
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="col-md-12">
+											<button class="btn btn-primary" type="submit">Update Profile</button>
+										</div>
+									</div>
+									<!-- <input type="submit" value="Save" class="btn btn-primary"> -->
+								</form>
+							</div>
+						</div> <!-- row.// -->
+					</div> <!-- card-body .// -->
+				</article> <!-- order-group.// -->
+			</main>
+		</div> <!-- row.// -->
+	</div>
+</section>
+<br><br>
+{% endblock %}

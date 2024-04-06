@@ -1,0 +1,46 @@
+
+	<!--   SIDEBAR   -->
+	<ul class="list-group">
+		<a class="list-group-item {% if '/accounts/' == request.path %}active{% endif %}" href="{% url 'dashboard' %}">
+			Dashboard </a>
+		<a class="list-group-item {% if '/my_orders/' in request.path %}active{% endif %}" href="{% url 'my_orders' %}">
+			My orders </a>
+		<a class="list-group-item {% if '/my_custom_orders/' in request.path %}active{% endif %}" href="{% url 'my_custom_orders' %}">
+				My Custom orders </a>
+		<a class="list-group-item {% if '/edit_profile/' in request.path %}active{% endif %}"
+			href="{% url 'edit_profile' %}"> Edit Profile </a>
+		<a class="list-group-item {% if '/change_password/' in request.path %}active{% endif %}"
+			href="{% url 'change_password' %}"> Change Password </a>
+		
+		
+			{% if request.user.is_admin %}
+		<a class="list-group-item" href="{% url 'all-admin-orders' %}">View All Orders</a>
+		<a class="list-group-item" href="{% url 'view_all_custom_orders_to_admin' %}">View All Custom Orders</a>
+		<a class="list-group-item" href="{% url 'all-admin-users' %}">View All Customers</a>
+		{% endif %}
+		
+		<a class="list-group-item cs" style="cursor: pointer;"
+		data-toggle="modal" data-target="#logoutOne"> <i class="fa fa-power-off"></i> Logout </a>
+		<!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="logoutOne" tabindex="-1" role="dialog" aria-labelledby="logoutLabelOne" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="logoutLabelOne">Logout</h5>
+		</div>
+		<div class="modal-body">
+		  Are You Sure Want to Logout <b>{{request.user.email}}</b>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		  <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+		</div>
+	  </div>
+	</div>
+  </div>
+	</ul>
+	<br>
+	

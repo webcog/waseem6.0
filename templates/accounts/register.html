@@ -1,0 +1,72 @@
+{% extends "baseTwo.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+  
+<div class="container">
+
+
+	<h4 class="checkout-subtitle">Create a new account</h4>
+	<p class="text title-tag-line">Create your new account.</p>
+    {% include 'includes/alerts.html' %}
+
+	<form  action="{% url 'register' %}" method="POST" class="register-form outer-top-xs" role="form">
+        {% csrf_token %}
+        {{ form.email.errors }}
+		{{ form.non_field_errors }}
+		<div class="form-group">
+	    	<label class="info-title" for="exampleInputEmail2">First Name <span>*</span></label>
+            {% render_field form.first_name type="text" class="form-control unicase-form-control text-input" id="exampleInputEmail2" %}
+
+	  	</div>
+        <div class="form-group">
+		    <label class="info-title" for="exampleInputEmail1">Last Name <span>*</span></label>
+            {% render_field form.last_name type="text" class="form-control unicase-form-control text-input" id="exampleInputEmail2" %}
+		</div>
+        <div class="form-group">
+		    <label class="info-title" for="exampleInputEmail1">Email <span>*</span></label>
+            {% render_field form.email type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail2" %}
+
+        </div>
+        <div class="form-group">
+		    <label class="info-title" for="exampleInputEmail1">Phone Number <span>*</span></label>
+            {% render_field form.phone_number type="tel" class="form-control unicase-form-control text-input" id="exampleInputEmail2" %}
+
+        </div>
+        <div class="form-group">
+		    <label class="info-title" for="exampleInputEmail1">Password <span>*</span></label>
+            {% render_field form.password type="password" class="form-control unicase-form-control text-input" id="exampleInputEmail2" %}
+
+		</div>
+         <div class="form-group">
+		    <label class="info-title" for="exampleInputEmail1">Confirm Password <span>*</span></label>
+            {% render_field form.confirm_password type="password" class="form-control unicase-form-control text-input" id="exampleInputEmail2" %}
+
+        </div>
+        <div class="form-group">
+		    <label class="info-title" for="exampleInputEmail1">Shop Name <span>(Optional)</span></label>
+            <input type="text" placeholder="Shop Name" class="form-control unicase-form-control text-input" id="exampleInputEmail2" />
+
+        </div>
+        <div class="form-group">
+		    <label class="info-title" for="exampleInputEmail1">City <span>*</span></label>
+            <input type="text" placeholder="City" class="form-control unicase-form-control text-input" id="exampleInputEmail2" />
+
+        </div>
+        <div class="form-group">
+            <p class="text-end" style="text-align: right;font-weight: 500;">
+                <a href="{% url 'login' %}">
+                    Alredy Have An Account
+                </a>
+            </p>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button>
+        </div>
+	</form>
+
+  
+	
+</div>	
+
+{% endblock content %}

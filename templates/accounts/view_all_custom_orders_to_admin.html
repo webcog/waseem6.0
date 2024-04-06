@@ -1,0 +1,55 @@
+{% extends 'baseThree.html' %}
+
+{% block content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<section class="section-conten padding-y bg">
+    {% include 'includes/alerts.html' %}
+    <div class="container">
+        <div class="row">
+            <main class="col-md-12">
+                
+                <div>
+                    
+                <form action="{% url 'custom_order_search' %}" method="get">
+                        <input type="search" name="q" class="" style="padding: 7px;border: 2px solid black;width: 88%;" placeholder="Search... Order NUmber #12-20-202...">
+                        <button class="btn btn-primary" type="submit" style="border-radius: 0;outline: none;border: none;">Search</button>
+                    </form>
+                </div>
+                <br><br>
+                <article class="card">
+                    <header class="card-header" style="padding: 8px;">
+                        <strong class="d-inline-block mr-3">Your Order History:</strong>
+                    </header>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Order #</th>
+                                        <th scope="col">Billing Name</th>
+                                        <th scope="col">Phone</th>
+                                        <th scope="col">Order Total</th>
+                                        <th scope="col">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for order in orders %}
+                                    <tr>
+                                        <th scope="row"><a href="{% url 'order_confirmation' order.order_number %}">{{ order.order_number }}</a></th>
+                                        <td>{{ order.full_name }}</td>
+                                        <td>{{ order.phone }}</td>
+                                        <td>RS {{ order.order_total }}</td>
+                                        <td>{{ order.created_at }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> <!-- card-body .// -->
+                </article>
+                 <!-- order-group.// -->
+            </main>
+        </div> <!-- row.// -->
+    </div>
+</section>
+{% endblock %}

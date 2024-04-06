@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Order Notification</title>
+</head>
+<body>
+    <h2>New Order Placed</h2>
+    <p>Hello Admin,</p>
+    <p>A new order has been placed. Below are the details:</p>
+    
+    <p><strong>Order Number:</strong> {{ order.order_number }}</p>
+    <p><strong>Product:</strong> {{ order.product.product_name }}</p>
+    <p><strong>Quantity:</strong> {{ order.quantity }}</p>
+    <!-- Include more order details as needed -->
+
+    <p>Check your admin dashboard for further actions.</p>
+</body>
+</html>

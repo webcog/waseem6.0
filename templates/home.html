@@ -1,0 +1,685 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock title %}
+{% block content %}
+
+<div class="col-xs-12 col-sm-12 col-md-9 homebanner-holder"> 
+    <!-- ========================================== SECTION – HERO ========================================= -->
+    
+    {% comment %} <div id="hero">
+      <div id="owl-main" class="owl-carousel owl-inner-nav owl-ui-sm">
+        <div class="item" style="background-image: url(../static/assets/images/sliders/01.jpg);">
+          <div class="container-fluid">
+            <div class="caption bg-color vertical-center text-left">
+              <div class="slider-header fadeInDown-1">Top Brands</div>
+              <div class="big-text fadeInDown-1"> New Collections </div>
+              <div class="excerpt fadeInDown-2 hidden-xs"> <span>Customize Your Desing According to Your Requirements</span> </div>
+              <div class="button-holder fadeInDown-3"> <a href="{% url 'store' %}" class="btn-lg btn btn-uppercase btn-primary shop-now-button">Shop Now</a> </div>
+            </div>
+            <!-- /.caption --> 
+          </div>
+          <!-- /.container-fluid --> 
+        </div>
+        <!-- /.item -->
+        
+        <div class="item" style="background-image: url(../static/assets/images/sliders/02.jpg);">
+          <div class="container-fluid">
+            <div class="caption bg-color vertical-center text-left">
+              <div class="slider-header fadeInDown-1">Spring 2024</div>
+              <div class="big-text fadeInDown-1"> New Fashion </div>
+              <div class="excerpt fadeInDown-2 hidden-xs"> <span>Purchased Products in REasonable Price</span> </div>
+              <div class="button-holder fadeInDown-3"> <a href="{% url 'store' %}" class="btn-lg btn btn-uppercase btn-primary shop-now-button">Shop Now</a> </div>
+            </div>
+            <!-- /.caption --> 
+          </div>
+          <!-- /.container-fluid --> 
+        </div>
+        <!-- /.item --> 
+        
+      </div>
+      <!-- /.owl-carousel --> 
+    </div> {% endcomment %}
+
+
+
+
+
+
+
+    <div id="hero">
+      <div id="owl-main" class="owl-carousel owl-inner-nav owl-ui-sm">
+          {% for banner in banners %}
+          <div class="item" style="background-image: url({{ banner.image.url }});">
+              <div class="container-fluid">
+                  <div class="caption bg-color vertical-center text-left">
+                      <div class="slider-header fadeInDown-1">{{ banner.title_1 }}</div>
+                      <div class="big-text fadeInDown-1">{{ banner.title_2 }}</div>
+                      <div class="excerpt fadeInDown-2 hidden-xs"> <span>{{ banner.title_3 }}</span> </div>
+                      <div class="button-holder fadeInDown-3"> <a href="{% url 'store' %}" class="btn-lg btn btn-uppercase btn-primary shop-now-button">Shop Now</a> </div>
+                  </div>
+                  <!-- /.caption -->
+              </div>
+              <!-- /.container-fluid -->
+          </div>
+          <!-- /.item -->
+          {% endfor %}
+      </div>
+      <!-- /.owl-carousel -->
+  </div>
+  
+    
+    <!-- ========================================= SECTION – HERO : END ========================================= --> 
+    
+
+    <!-- ============================================== SCROLL TABS ============================================== -->
+    <div id="product-tabs-slider" class="scroll-tabs outer-top-vs">
+      <div class="more-info-tab clearfix ">
+        <h3 class="new-product-title pull-left">New Products</h3>
+       
+        <!-- /.nav-tabs --> 
+      </div>
+      <div class="tab-content outer-top-xs">
+        <div class="tab-pane in active" id="all">
+          <div class="product-slider">
+            <div class="owl-carousel home-owl-carousel custom-carousel owl-theme">
+              
+              {% for product in products|slice:":6" %}
+
+              <div class="item item-carousel">
+                <div class="products">
+                  <div class="product">
+                    <div class="product-image">
+                      <div class="image"> 
+                      <a href="{{product.get_url}}">
+                         <img src="{{ product.images.url }}" alt=""> 
+                          <img src="{{ product.images_hover.url }}" alt="" class="hover-image">
+                      </a> 
+                   </div>
+                      <!-- /.image -->
+                      
+                      <div class="tag new"><span>new</span></div>
+                    </div>
+                    <!-- /.product-image -->
+                    
+                    <div class="product-info text-left">
+                      <h3 class="name"><a href="{{product.get_url}}">{{product.product_name}}</a></h3>
+                      <div class="rating">
+                        <span>
+                          <i class="fa fa-star{% if product.average_review < 0.5 %}-o{% elif product.average_review >= 0.5 and product.average_review < 1%}-half-o{% endif %}"
+                            aria-hidden="true"></i>
+                          <i class="fa fa-star{% if product.average_review < 1.5 %}-o{% elif product.average_review >= 1.5 and product.average_review < 2%}-half-o{% endif %}"
+                            aria-hidden="true"></i>
+                          <i class="fa fa-star{% if product.average_review < 2.5 %}-o{% elif product.average_review >= 2.5 and product.average_review < 3%}-half-o{% endif %}"
+                            aria-hidden="true"></i>
+                          <i class="fa fa-star{% if product.average_review < 3.5 %}-o{% elif product.average_review >= 3.5 and product.average_review < 4%}-half-o{% endif %}"
+                            aria-hidden="true"></i>
+                          <i class="fa fa-star{% if product.average_review < 4.5 %}-o{% elif product.average_review >= 4.5 and product.average_review < 5%}-half-o{% endif %}"
+                            aria-hidden="true"></i>
+                        </span>
+
+                      </div>
+                      <div class="description"></div>
+                      {% if product.stock <= 0 %}
+                      <div class="product-price"> <span class="price"> Out of Stock </span> 
+                      {% else %}
+                      <div class="product-price"> <span class="price"> PKR {{product.price}} </span> 
+                        {% endif %}
+                        {% comment %} <span class="price-before-discount">$ 800</span> {% endcomment %}
+                       </div>
+                      <!-- /.product-price --> 
+                      
+                    </div>
+                    <!-- /.product-info -->
+                    <div class="cart clearfix animate-effect">
+                      <div class="action">
+                        <ul class="list-unstyled">
+                          <li style="visibility: hidden;" class="add-cart-button btn-group">
+                            <button data-toggle="tooltip" class="btn btn-primary icon" type="button" title="Add Cart"> <i class="fa fa-shopping-cart"></i> </button>
+                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                          </li>
+                          <li class="lnk wishlist"> <a data-toggle="tooltip" class="add-to-cart" href="{{ product.get_url }}" title="View"> <i class="fa fa-eye"></i></a> </li>
+                          <li  style="visibility: hidden;" class="lnk"> <a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                        </ul>
+                      </div>
+                      <!-- /.action --> 
+                    </div>
+                    <!-- /.cart --> 
+                  </div>
+                  <!-- /.product --> 
+                  
+                </div>
+                <!-- /.products --> 
+              </div>
+              {% endfor %}
+
+
+            </div>
+            <!-- /.home-owl-carousel --> 
+          </div>
+          <!-- /.product-slider --> 
+        </div>
+        <!-- /.tab-pane -->
+        
+        <div class="tab-pane" id="smartphone">
+          <div class="product-slider">
+            <div class="owl-carousel home-owl-carousel custom-carousel owl-theme">
+             
+              {% for product in products|slice:":6" %}
+
+              <div class="item item-carousel">
+                <div class="products">
+                  <div class="product">
+                    <div class="product-image">
+                      <div class="image"> 
+                      <a href="{{product.get_url}}">
+                         <img src="{{ product.images.url }}" alt=""> 
+                          <img src="{{ product.images_hover.url }}" alt="" class="hover-image">
+                      </a> 
+                   </div>
+                      <!-- /.image -->
+                      
+                      <div class="tag new"><span>new</span></div>
+                    </div>
+                    <!-- /.product-image -->
+                    
+                    <div class="product-info text-left">
+                      <h3 class="name"><a href="{{product.get_url}}">{{product.product_name}}</a></h3>
+                      <div class="rating">
+                        <span>
+                          <i class="fa fa-star{% if product.average_review < 0.5 %}-o{% elif product.average_review >= 0.5 and product.average_review < 1%}-half-o{% endif %}"
+                            aria-hidden="true"></i>
+                          <i class="fa fa-star{% if product.average_review < 1.5 %}-o{% elif product.average_review >= 1.5 and product.average_review < 2%}-half-o{% endif %}"
+                            aria-hidden="true"></i>
+                          <i class="fa fa-star{% if product.average_review < 2.5 %}-o{% elif product.average_review >= 2.5 and product.average_review < 3%}-half-o{% endif %}"
+                            aria-hidden="true"></i>
+                          <i class="fa fa-star{% if product.average_review < 3.5 %}-o{% elif product.average_review >= 3.5 and product.average_review < 4%}-half-o{% endif %}"
+                            aria-hidden="true"></i>
+                          <i class="fa fa-star{% if product.average_review < 4.5 %}-o{% elif product.average_review >= 4.5 and product.average_review < 5%}-half-o{% endif %}"
+                            aria-hidden="true"></i>
+                        </span>
+
+                      </div>
+                      <div class="description"></div>
+                      {% if product.stock <= 0 %}
+                      <div class="product-price"> <span class="price"> Out of Stock </span> 
+                      {% else %}
+                      <div class="product-price"> <span class="price"> PKR {{product.price}} </span> 
+                        {% endif %}
+                        {% comment %} <span class="price-before-discount">$ 800</span> {% endcomment %}
+                       </div>
+                      <!-- /.product-price --> 
+                      
+                    </div>
+                    <!-- /.product-info -->
+                    <div class="cart clearfix animate-effect">
+                      <div class="action">
+                        <ul class="list-unstyled">
+                          <li style="visibility: hidden;" class="add-cart-button btn-group">
+                            <button data-toggle="tooltip" class="btn btn-primary icon" type="button" title="Add Cart"> <i class="fa fa-shopping-cart"></i> </button>
+                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                          </li>
+                          <li class="lnk wishlist"> <a data-toggle="tooltip" class="add-to-cart" href="{{ product.get_url }}" title="View"> <i class="fa fa-eye"></i></a> </li>
+                          <li  style="visibility: hidden;" class="lnk"> <a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                        </ul>
+                      </div>
+                      <!-- /.action --> 
+                    </div>
+                    <!-- /.cart --> 
+                  </div>
+                  <!-- /.product --> 
+                  
+                </div>
+                <!-- /.products --> 
+              </div>
+              {% endfor %}
+              <!-- /.item -->
+              
+             
+            </div>
+            <!-- /.home-owl-carousel --> 
+          </div>
+          <!-- /.product-slider --> 
+        </div>
+        <!-- /.tab-pane -->
+        
+        <div class="tab-pane" id="laptop">
+          <div class="product-slider">
+            <div class="owl-carousel home-owl-carousel custom-carousel owl-theme">
+              
+
+              {% for product in products|slice:":6" %}
+
+              <div class="item item-carousel">
+                <div class="products">
+                  <div class="product">
+                    <div class="product-image">
+                      <div class="image"> 
+                      <a href="{{product.get_url}}">
+                         <img src="{{ product.images.url }}" alt=""> 
+                          <img src="{{ product.images_hover.url }}" alt="" class="hover-image">
+                      </a> 
+                   </div>
+                      <!-- /.image -->
+                      
+                      <div class="tag new"><span>new</span></div>
+                    </div>
+                    <!-- /.product-image -->
+                    
+                    <div class="product-info text-left">
+                      <h3 class="name"><a href="{{product.get_url}}">{{product.product_name}}</a></h3>
+                      <div class="rating">
+                        <span>
+                          <i class="fa fa-star{% if product.average_review < 0.5 %}-o{% elif product.average_review >= 0.5 and product.average_review < 1%}-half-o{% endif %}"
+                            aria-hidden="true"></i>
+                          <i class="fa fa-star{% if product.average_review < 1.5 %}-o{% elif product.average_review >= 1.5 and product.average_review < 2%}-half-o{% endif %}"
+                            aria-hidden="true"></i>
+                          <i class="fa fa-star{% if product.average_review < 2.5 %}-o{% elif product.average_review >= 2.5 and product.average_review < 3%}-half-o{% endif %}"
+                            aria-hidden="true"></i>
+                          <i class="fa fa-star{% if product.average_review < 3.5 %}-o{% elif product.average_review >= 3.5 and product.average_review < 4%}-half-o{% endif %}"
+                            aria-hidden="true"></i>
+                          <i class="fa fa-star{% if product.average_review < 4.5 %}-o{% elif product.average_review >= 4.5 and product.average_review < 5%}-half-o{% endif %}"
+                            aria-hidden="true"></i>
+                        </span>
+
+                      </div>
+                      <div class="description"></div>
+                      {% if product.stock <= 0 %}
+                      <div class="product-price"> <span class="price"> Out of Stock </span> 
+                      {% else %}
+                      <div class="product-price"> <span class="price"> PKR {{product.price}} </span> 
+                        {% endif %}
+                        {% comment %} <span class="price-before-discount">$ 800</span> {% endcomment %}
+                       </div>
+                      <!-- /.product-price --> 
+                      
+                    </div>
+                    <!-- /.product-info -->
+                    <div class="cart clearfix animate-effect">
+                      <div class="action">
+                        <ul class="list-unstyled">
+                          <li style="visibility: hidden;" class="add-cart-button btn-group">
+                            <button data-toggle="tooltip" class="btn btn-primary icon" type="button" title="Add Cart"> <i class="fa fa-shopping-cart"></i> </button>
+                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                          </li>
+                          <li class="lnk wishlist"> <a data-toggle="tooltip" class="add-to-cart" href="{{ product.get_url }}" title="View"> <i class="fa fa-eye"></i></a> </li>
+                          <li  style="visibility: hidden;" class="lnk"> <a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                        </ul>
+                      </div>
+                      <!-- /.action --> 
+                    </div>
+                    <!-- /.cart --> 
+                  </div>
+                  <!-- /.product --> 
+                  
+                </div>
+                <!-- /.products --> 
+              </div>
+              {% endfor %}
+              <!-- /.item --> 
+            </div>
+            <!-- /.home-owl-carousel --> 
+          </div>
+          <!-- /.product-slider --> 
+        </div>
+        <!-- /.tab-pane -->
+        
+        <div class="tab-pane" id="apple">
+          <div class="product-slider">
+            <div class="owl-carousel home-owl-carousel custom-carousel owl-theme">
+              
+
+              {% for product in products|slice:":6" %}
+
+              <div class="item item-carousel">
+                <div class="products">
+                  <div class="product">
+                    <div class="product-image">
+                      <div class="image"> 
+                      <a href="{{product.get_url}}">
+                         <img src="{{ product.images.url }}" alt=""> 
+                          <img src="{{ product.images_hover.url }}" alt="" class="hover-image">
+                      </a> 
+                   </div>
+                      <!-- /.image -->
+                      
+                      <div class="tag new"><span>new</span></div>
+                    </div>
+                    <!-- /.product-image -->
+                    
+                    <div class="product-info text-left">
+                      <h3 class="name"><a href="{{product.get_url}}">{{product.product_name}}</a></h3>
+                      <div class="rating">
+                        <span>
+                          <i class="fa fa-star{% if product.average_review < 0.5 %}-o{% elif product.average_review >= 0.5 and product.average_review < 1%}-half-o{% endif %}"
+                            aria-hidden="true"></i>
+                          <i class="fa fa-star{% if product.average_review < 1.5 %}-o{% elif product.average_review >= 1.5 and product.average_review < 2%}-half-o{% endif %}"
+                            aria-hidden="true"></i>
+                          <i class="fa fa-star{% if product.average_review < 2.5 %}-o{% elif product.average_review >= 2.5 and product.average_review < 3%}-half-o{% endif %}"
+                            aria-hidden="true"></i>
+                          <i class="fa fa-star{% if product.average_review < 3.5 %}-o{% elif product.average_review >= 3.5 and product.average_review < 4%}-half-o{% endif %}"
+                            aria-hidden="true"></i>
+                          <i class="fa fa-star{% if product.average_review < 4.5 %}-o{% elif product.average_review >= 4.5 and product.average_review < 5%}-half-o{% endif %}"
+                            aria-hidden="true"></i>
+                        </span>
+
+                      </div>
+                      <div class="description"></div>
+                      {% if product.stock <= 0 %}
+                      <div class="product-price"> <span class="price"> Out of Stock </span> 
+                      {% else %}
+                      <div class="product-price"> <span class="price"> PKR {{product.price}} </span> 
+                        {% endif %}
+                        {% comment %} <span class="price-before-discount">$ 800</span> {% endcomment %}
+                       </div>
+                      <!-- /.product-price --> 
+                      
+                    </div>
+                    <!-- /.product-info -->
+                    <div class="cart clearfix animate-effect">
+                      <div class="action">
+                        <ul class="list-unstyled">
+                          <li style="visibility: hidden;" class="add-cart-button btn-group">
+                            <button data-toggle="tooltip" class="btn btn-primary icon" type="button" title="Add Cart"> <i class="fa fa-shopping-cart"></i> </button>
+                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                          </li>
+                          <li class="lnk wishlist"> <a data-toggle="tooltip" class="add-to-cart" href="{{ product.get_url }}" title="View"> <i class="fa fa-eye"></i></a> </li>
+                          <li  style="visibility: hidden;" class="lnk"> <a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                        </ul>
+                      </div>
+                      <!-- /.action --> 
+                    </div>
+                    <!-- /.cart --> 
+                  </div>
+                  <!-- /.product --> 
+                  
+                </div>
+                <!-- /.products --> 
+              </div>
+              {% endfor %}
+
+              
+            </div>
+            <!-- /.home-owl-carousel --> 
+          </div>
+          <!-- /.product-slider --> 
+        </div>
+        <!-- /.tab-pane --> 
+        
+      </div>
+      <!-- /.tab-content --> 
+    </div>
+    <!-- /.scroll-tabs --> 
+    <!-- ============================================== SCROLL TABS : END ============================================== --> 
+    <!-- ============================================== WIDE PRODUCTS ============================================== -->
+    <div class="wide-banners outer-bottom-xs">
+      <div class="row">
+    
+    {% for i in ad_banner_three|slice:"0:3" %}
+      
+    <div class="col-md-4 col-sm-4">
+      <div class="wide-banner cnt-strip">
+        <div class="image"> <img class="img-responsive" src="{{i.ad_image.url}}" alt="xz"> </div>
+      </div>
+      <!-- /.wide-banner --> 
+    </div>
+    
+    {% endfor %}
+    
+      </div>
+      <!-- /.row --> 
+    </div>
+    <!-- /.wide-banners --> 
+    
+    <!-- ============================================== WIDE PRODUCTS : END ============================================== --> 
+    <!-- ============================================== FEATURED PRODUCTS ============================================== -->
+    <section class="section featured-product">
+    <div class="row">
+    <div class="col-lg-3">
+      <h3 class="section-title">Products</h3>
+      <ul class="sub-cat">
+        {% for main_category in main_categories %}
+        {% for parent_category in main_category.parentcategory_set.all %}
+            {% for child_category in parent_category.childcategory_set.all %}
+                <li><a href="{{ child_category.get_url }}">{{ child_category.name }}</a></li>
+            {% endfor %}
+        {% endfor %}
+    {% endfor %}
+      </ul>
+      </div>
+      <div class="col-lg-9">
+      <div class="owl-carousel homepage-owl-carousel custom-carousel owl-theme outer-top-xs">
+       
+
+ {% for product in products|slice:"6:12" %}
+
+              <div class="item item-carousel">
+                <div class="products">
+                  <div class="product">
+                    <div class="product-image">
+                      <div class="image"> 
+                      <a href="{{product.get_url}}">
+                         <img src="{{ product.images.url }}" alt=""> 
+                          <img src="{{ product.images_hover.url }}" alt="" class="hover-image">
+                      </a> 
+                   </div>
+                      <!-- /.image -->
+                      
+                    </div>
+                    <!-- /.product-image -->
+                    
+                    <div class="product-info text-left">
+                      <h3 class="name"><a href="{{product.get_url}}">{{product.product_name}}</a></h3>
+                      <div class="rating">
+                        <span>
+                          <i class="fa fa-star{% if product.average_review < 0.5 %}-o{% elif product.average_review >= 0.5 and product.average_review < 1%}-half-o{% endif %}"
+                            aria-hidden="true"></i>
+                          <i class="fa fa-star{% if product.average_review < 1.5 %}-o{% elif product.average_review >= 1.5 and product.average_review < 2%}-half-o{% endif %}"
+                            aria-hidden="true"></i>
+                          <i class="fa fa-star{% if product.average_review < 2.5 %}-o{% elif product.average_review >= 2.5 and product.average_review < 3%}-half-o{% endif %}"
+                            aria-hidden="true"></i>
+                          <i class="fa fa-star{% if product.average_review < 3.5 %}-o{% elif product.average_review >= 3.5 and product.average_review < 4%}-half-o{% endif %}"
+                            aria-hidden="true"></i>
+                          <i class="fa fa-star{% if product.average_review < 4.5 %}-o{% elif product.average_review >= 4.5 and product.average_review < 5%}-half-o{% endif %}"
+                            aria-hidden="true"></i>
+                        </span>
+
+                      </div>
+                      <div class="description"></div>
+                      {% if product.stock <= 0 %}
+                      <div class="product-price"> <span class="price"> Out of Stock </span> 
+                      {% else %}
+                      <div class="product-price"> <span class="price"> PKR {{product.price}} </span> 
+                        {% endif %}
+                        {% comment %} <span class="price-before-discount">$ 800</span> {% endcomment %}
+                       </div>
+                      <!-- /.product-price --> 
+                      
+                    </div>
+                    <!-- /.product-info -->
+                    <div class="cart clearfix animate-effect">
+                      <div class="action">
+                        <ul class="list-unstyled">
+                          <li style="visibility: hidden;" class="add-cart-button btn-group">
+                            <button data-toggle="tooltip" class="btn btn-primary icon" type="button" title="Add Cart"> <i class="fa fa-shopping-cart"></i> </button>
+                            <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                          </li>
+                          <li class="lnk wishlist"> <a data-toggle="tooltip" class="add-to-cart" href="{{ product.get_url }}" title="View"> <i class="fa fa-eye"></i></a> </li>
+                          <li  style="visibility: hidden;" class="lnk"> <a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                        </ul>
+                      </div>
+                      <!-- /.action --> 
+                    </div>
+                    <!-- /.cart --> 
+                  </div>
+                  <!-- /.product --> 
+                  
+                </div>
+                <!-- /.products --> 
+              </div>
+              {% endfor %}
+
+
+      </div>
+      </div>
+      </div>
+      <!-- /.home-owl-carousel --> 
+    </section>
+    <!-- /.section --> 
+    <!-- ============================================== FEATURED PRODUCTS : END ============================================== --> 
+    <!-- ============================================== WIDE PRODUCTS ============================================== -->
+    <div class="wide-banners outer-bottom-xs">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="wide-banner1 cnt-strip">
+            <div class="image"> <img class="img-responsive" src="assets/images/banners/home-banner.jpg" alt=""> </div>
+            <div class="strip strip-text">
+              <div class="strip-inner">
+                <h2 class="text-right">Amazing Sunglasses<br>
+                  <span class="shopping-needs">Get 40% off on selected items</span></h2>
+              </div>
+            </div>
+            <div class="new-label">
+              <div class="text">NEW</div>
+            </div>
+            <!-- /.new-label --> 
+          </div>
+          <!-- /.wide-banner --> 
+        </div>
+        <!-- /.col --> 
+        <div class="col-md-4">
+          <div class="wide-banner cnt-strip">
+            <div class="image"> <img class="img-responsive" src="assets/images/banners/home-banner4.jpg" alt=""> </div>
+            
+            
+            <!-- /.new-label --> 
+          </div>
+          <!-- /.wide-banner --> 
+        </div>
+        
+      </div>
+      <!-- /.row --> 
+    </div>
+    <!-- /.wide-banners --> 
+    <!-- ============================================== WIDE PRODUCTS : END ============================================== --> 
+    
+    
+    
+    <!-- /.sidebar-widget --> 
+    <!-- ============================================== BEST SELLER : END ============================================== --> 
+    
+    <!-- ============================================== BLOG SLIDER ============================================== -->
+    <section class="section latest-blog outer-bottom-vs">
+      <h3 class="section-title">Latest Tutorials</h3>
+      <div class="blog-slider-container outer-top-xs">
+        <div class="owl-carousel blog-slider custom-carousel">
+  
+          
+          {% for i in videos|slice:"0:3" %}
+            
+          <div class="item">
+            <div class="blog-post">
+              <div class="blog-post-image">
+                <div class="image"> <a href="{{i.embed_code}}" target="_blank"><img src="{{i.thumbnail.url}}" alt=""></a> </div>
+              </div>
+              <div class="blog-post-info text-left">
+                <h3 class="name"><a  href="{{i.embed_code}}" target="_blank">{{i.title}}</a></h3>
+                <span class="info">Category: {{i.category}} &nbsp;|&nbsp; {{i.date_added|date:"M d, Y"}} </span>
+                </div>
+            </div> 
+          </div>
+
+
+          {% endfor %}
+          
+        </div>
+        <!-- /.owl-carousel --> 
+      </div>
+      <!-- /.blog-slider-container --> 
+    </section>
+    <!-- /.section --> 
+    <!-- ============================================== BLOG SLIDER : END ============================================== --> 
+    
+    <!-- ============================================== FEATURED PRODUCTS ============================================== -->
+    <section class="section new-arriavls">
+      <h3 class="section-title">Featured Products</h3>
+      <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
+      
+        {% for product in products|slice:"12:18" %}
+
+        <div class="item item-carousel">
+          <div class="products">
+            <div class="product">
+              <div class="product-image">
+                <div class="image"> 
+                <a href="{{product.get_url}}">
+                   <img src="{{ product.images.url }}" alt=""> 
+                    <img src="{{ product.images_hover.url }}" alt="" class="hover-image">
+                </a> 
+             </div>
+                <!-- /.image -->
+                
+                {% comment %} <div class="tag hot"><span>hot</span></div> {% endcomment %}
+              </div>
+              <!-- /.product-image -->
+              
+              <div class="product-info text-left">
+                <h3 class="name"><a href="{{product.get_url}}">{{product.product_name}}</a></h3>
+                <div class="rating">
+                  <span>
+                    <i class="fa fa-star{% if product.average_review < 0.5 %}-o{% elif product.average_review >= 0.5 and product.average_review < 1%}-half-o{% endif %}"
+                      aria-hidden="true"></i>
+                    <i class="fa fa-star{% if product.average_review < 1.5 %}-o{% elif product.average_review >= 1.5 and product.average_review < 2%}-half-o{% endif %}"
+                      aria-hidden="true"></i>
+                    <i class="fa fa-star{% if product.average_review < 2.5 %}-o{% elif product.average_review >= 2.5 and product.average_review < 3%}-half-o{% endif %}"
+                      aria-hidden="true"></i>
+                    <i class="fa fa-star{% if product.average_review < 3.5 %}-o{% elif product.average_review >= 3.5 and product.average_review < 4%}-half-o{% endif %}"
+                      aria-hidden="true"></i>
+                    <i class="fa fa-star{% if product.average_review < 4.5 %}-o{% elif product.average_review >= 4.5 and product.average_review < 5%}-half-o{% endif %}"
+                      aria-hidden="true"></i>
+                  </span>
+
+                </div>
+                <div class="description"></div>
+                {% if product.stock <= 0 %}
+                <div class="product-price"> <span class="price"> Out of Stock </span> 
+                {% else %}
+                <div class="product-price"> <span class="price"> PKR {{product.price}} </span> 
+                  {% endif %}
+                  {% comment %} <span class="price-before-discount">$ 800</span> {% endcomment %}
+                 </div>
+                <!-- /.product-price --> 
+                
+              </div>
+              <!-- /.product-info -->
+              <div class="cart clearfix animate-effect">
+                <div class="action">
+                  <ul class="list-unstyled">
+                    <li style="visibility: hidden;" class="add-cart-button btn-group">
+                      <button data-toggle="tooltip" class="btn btn-primary icon" type="button" title="Add Cart"> <i class="fa fa-shopping-cart"></i> </button>
+                      <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                    </li>
+                    <li class="lnk wishlist"> <a data-toggle="tooltip" class="add-to-cart" href="{{ product.get_url }}" title="View"> <i class="fa fa-eye"></i></a> </li>
+                    <li  style="visibility: hidden;" class="lnk"> <a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                  </ul>
+                </div>
+                <!-- /.action --> 
+              </div>
+              <!-- /.cart --> 
+            </div>
+            <!-- /.product --> 
+            
+          </div>
+          <!-- /.products --> 
+        </div>
+        {% endfor %}
+
+
+        
+      </div>
+      <!-- /.home-owl-carousel --> 
+    </section>
+    <!-- /.section --> 
+    <!-- ============================================== FEATURED PRODUCTS : END ============================================== --> 
+    
+  </div>
+{% endblock content %}

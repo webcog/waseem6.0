@@ -1,0 +1,350 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<!-- Meta -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="keywords" content="MediaCenter, Template, eCommerce">
+<meta name="robots" content="all">
+<title>{% block title %}{% endblock title %} - Tie</title>
+
+<!-- Bootstrap Core CSS -->
+<link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+
+<!-- Customizable CSS -->
+<link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/blue.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/owl.carousel.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/owl.transitions.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/rateit.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/bootstrap-select.min.css' %}">
+<link href="{% static 'assets/css/lightbox.css' %}" rel="stylesheet">
+
+<!-- Icons/Glyphs -->
+<link rel="stylesheet" href="{% static 'assets/css/font-awesome.css' %}">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Barlow:200,300,300i,400,400i,500,500i,600,700,800" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,600italic,700,700italic,800' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+</head>
+<body class="cnt-home">
+
+
+
+{% include "includes/navbar.html" %}
+
+
+
+
+
+<!-- ============================================== HEADER : END ============================================== -->
+<div class="breadcrumb">
+	<div class="container">
+		<div class="breadcrumb-inner">
+			<ul class="list-inline list-unstyled">
+				<li><a href="#">Home</a></li>
+				<li class='active'>Checkout
+					
+				</li>
+			</ul>
+		</div><!-- /.breadcrumb-inner -->
+	</div><!-- /.container -->
+</div><!-- /.breadcrumb -->
+
+
+
+
+
+
+<div class="body-content">
+	<div class="container">
+		<form action="{% url 'payments' %}" method="POST">
+			{% csrf_token %}
+		<div class="checkout-box ">
+			<div class="row">
+<div class="col-xs-12 col-sm-6 col-md-6 rht-col">
+<div class="panel-group checkout-steps" id="accordion">
+						<!-- checkout-step-01  -->
+<div class="panel panel-default checkout-step-01">
+
+	<!-- panel-heading -->
+		<div class="panel-heading">
+    	<h4 class="unicase-checkout-title">
+	        <a data-toggle="collapse" class="" data-parent="#accordion" href="#collapseOne">
+	          <span>1</span>Checkout Method
+			</a>
+	     </h4>
+    </div>
+    <!-- panel-heading -->
+
+	<div id="collapseOne" class="panel-collapse collapse in">
+
+		<!-- panel-body  -->
+	    <div class="panel-body">
+			<div class="row">		
+
+				<!-- guest-login -->			
+				<div class="col-md-12 col-sm-12 guest-login">
+					<h4 class="checkout-subtitle">Billing Address</h4>
+					<div class="row">
+						<div class="form-row">
+							<div class="col-md-6 form-group">
+								<label for="">First Name</label>
+								<input type="text" name="first_name" value="{{ request.user.first_name }}" class="form-control" required>
+							</div>
+							<div class="col-md-6 form-group">
+								<label for="">Last Name</label>
+								<input type="text" name="last_name" value="{{ request.user.last_name }}"   class="form-control" required>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-md-6 form-group">
+								<label for="">Email</label>
+								<input type="email" name="email" class="form-control"  value="{{ request.user.email }}"  required>
+							</div>
+							<div class="col-md-6 form-group">
+								<label for="">Phone Number</label>
+								<input type="text" name="phone"  value="{{ request.user.phone_number }}"  class="form-control" required>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-md-6 form-group">
+								<label for="">Address Line 1</label>
+								<input type="text" name="address_line_1" class="form-control" required>
+							</div>
+							<div class="col-md-6 form-group">
+								<label for="">Address Line 2</label>
+								<input type="text" name="address_line_2" class="form-control">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-md-4 form-group">
+								<label for="">City</label>
+								<input type="text" name="city" class="form-control" required>
+							</div>
+							<div class="col-md-4 form-group">
+								<label for="">State</label>
+								<input type="text" name="state" class="form-control" required>
+							</div>
+							<div class="col-md-4 form-group">
+								<label for="">Country</label>
+								<input type="text" name="country" class="form-control" required>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-md-12 form-group">
+								<label for="">Order Note</label>
+								<textarea name="order_note" rows="2" class="form-control"></textarea>
+							</div>
+						</div>
+					</div>
+					
+
+					
+				</div>
+				<!-- guest-login -->
+
+					
+
+			</div>			
+		</div>
+		<!-- panel-body  -->
+
+	</div><!-- row -->
+</div>
+<!-- checkout-step-06  -->
+					  	
+					</div><!-- /.checkout-steps -->
+				</div>
+<div class="col-xs-12 col-sm-6 col-md-6 sidebar">
+					<!-- checkout-progress-sidebar -->
+<div class="checkout-progress-sidebar ">
+	<div class="panel-group">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+		    	<h4 class="unicase-checkout-title">Your Checkout Progress</h4>
+		    </div>
+		    <div class="">
+				<ul class="nav nav-checkout-progress list-unstyled">
+					{% for cart_item in cart_items %}
+						<li>
+							<a href="{{ cart_item.product.get_url }}" class="title text-dark">
+								{{ cart_item.product.product_name }}
+								<span class="text-muted small">(x{{ cart_item.quantity }})</span></a>
+							<p class="text-muted small">
+								{% if cart_item.variations.all %}
+								{% for item in cart_item.variations.all %}
+								{{ item.variation_category | capfirst }} :
+								{{ item.variation_value | capfirst}}<br>
+								{% endfor %}
+								{% endif %}
+							</p>
+							
+							
+
+						</li>
+						<hr>
+					
+						{% endfor %}
+				
+						<li>
+							<div class="cart-sub-total">
+								Subtotal<span class="inner-left-md">Rs {{ total }}</span>
+							</div>
+							<div class="cart-sub-total">
+								Tax<span class="inner-left-md">Rs {{ tax }}</span>
+							</div>
+							<div class="cart-grand-total">
+								Grand Total<span class="inner-left-md">Rs {{ grand_total }}</span>
+							</div>
+
+
+						</li>
+						<hr>
+						
+						<li>
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+								Place Order
+							  </button>
+							  
+							  <!-- Modal -->
+							  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered">
+								  <div class="modal-content">
+									<div class="modal-header">
+									  <h5 class="modal-title" id="exampleModalLabel">Check Out</h5>
+									 
+									</div>
+									<div class="modal-body" style="display: flex;justify-content: center;align-items: center;height: 22vh;">
+										<div style="text-align: center;">
+											<div style="margin-bottom: 10px;">
+
+												<a href="" class="btn btn-primary"> <i class="fa fa-credit-card"></i> Pay With Card</a>
+											</div>
+											
+											<div>
+
+												<button type="submit" class="btn btn-primary"> <i class="fa fa-money"></i> Cash on Delivery</button>
+											</div>	
+											<div>
+												<p class="" style="color: red;"> <b> Note! </b>COD is not available Out of Pakistan!</p>
+											</div>
+										</div>
+
+									</div>
+									<div class="modal-footer">
+									  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+									  <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+									</div>
+								  </div>
+								</div>
+							  </div>
+								
+						</li>
+				
+					
+				</ul>		
+			</div>
+		</div>
+	</div>
+</div> 
+<!-- checkout-progress-sidebar -->				</div>
+			</div><!-- /.row -->
+		</div><!-- /.checkout-box -->
+
+
+	</form>
+</div>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    var amount = "{{ grand_total }}"
+    var url = "{% url 'payments' %}"
+    var csrftoken = getCookie('csrftoken');
+    var orderID = "{{ order.order_number }}"
+    var payment_method = 'Stripe'
+    var redirect_url = "{% url 'order_complete' %}"
+
+    var stripe = Stripe('pk_test_51OVv7aBWwkgDef7RG3WV0fgfgC31jrlG6hOB3Wgri1DkkNi9HJOjXT0IWWlEMibf6WfW2ysNBMp0PH8WIgupxfmB00avD4bmYN');
+
+    // Create an instance of Stripe Elements and mount it to the #card-element
+    var elements = stripe.elements();
+    var cardElement = elements.create('card');
+    cardElement.mount('#card-element');
+
+    // Handle real-time validation errors from the card Element.
+    cardElement.addEventListener('change', function(event) {
+        var displayError = document.getElementById('card-errors');
+        if (event.error) {
+            displayError.textContent = event.error.message;
+        } else {
+            displayError.textContent = '';
+        }
+    });
+
+    // Render the Stripe payment form
+    document.getElementById('stripe-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Create a payment method using the card Element
+        stripe.createPaymentMethod({
+            type: 'card',
+            card: cardElement,
+        }).then(function(result) {
+            if (result.error) {
+                // Handle errors (e.g., card validation errors)
+                var errorElement = document.getElementById('card-errors');
+                errorElement.textContent = result.error.message;
+            } else {
+                // Send the payment method ID to your server
+                sendData(result.paymentMethod.id);
+            }
+        });
+    });
+
+    function sendData(paymentMethodId) {
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({
+                orderID: orderID,
+                payment_method: payment_method,
+                payment_method_id: paymentMethodId,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            window.location.href = redirect_url + '?order_number=' + data.order_number;
+        });
+    }
+</script>
+
+{% include "includes/footer.html" %}
+
+
+
+<script src="{% static 'assets/js/jquery-1.11.1.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap-hover-dropdown.min.js' %}"></script>
+<script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'assets/js/echo.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.easing-1.3.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap-slider.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.rateit.min.js' %}"></script>
+<script src="{% static 'assets/js/lightbox.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap-select.min.js' %}"></script>
+<script src="{% static 'assets/js/wow.min.js' %}"></script>
+<script src="{% static 'assets/js/scripts.js' %}"></script>
+</body>
+
+</html>

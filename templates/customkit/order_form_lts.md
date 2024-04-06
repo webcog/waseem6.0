@@ -1,0 +1,329 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<!-- Meta -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="keywords" content="MediaCenter, Template, eCommerce">
+<meta name="robots" content="all">
+<title>{% block title %}{% endblock title %} - Tie</title>
+
+<!-- Bootstrap Core CSS -->
+<link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+
+<!-- Customizable CSS -->
+<link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/blue.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/owl.carousel.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/owl.transitions.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/rateit.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/bootstrap-select.min.css' %}">
+<link href="{% static 'assets/css/lightbox.css' %}" rel="stylesheet">
+
+<!-- Icons/Glyphs -->
+<link rel="stylesheet" href="{% static 'assets/css/font-awesome.css' %}">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Barlow:200,300,300i,400,400i,500,500i,600,700,800" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,600italic,700,700italic,800' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+</head>
+<body class="cnt-home">
+
+
+
+{% include "includes/navbar.html" %}
+
+
+
+
+
+<!-- ============================================== HEADER : END ============================================== -->
+<div class="breadcrumb">
+	<div class="container">
+		<div class="breadcrumb-inner">
+			<ul class="list-inline list-unstyled">
+				<li><a href="#">Home</a></li>
+				<li class='active'>Checkout
+					
+				</li>
+			</ul>
+		</div><!-- /.breadcrumb-inner -->
+	</div><!-- /.container -->
+</div><!-- /.breadcrumb -->
+
+
+
+
+
+
+<div class="body-content">
+	<div class="container">
+		<form method="post" enctype="multipart/form-data" >
+			{% csrf_token %}
+
+
+			{{form.order_number}}
+			{{form.status}}
+			{{form.ip}}
+			{{form.is_ordered}}
+
+		<div class="checkout-box ">
+			<div class="row">
+<div class="col-xs-12 col-sm-6 col-md-6 rht-col">
+<div class="panel-group checkout-steps" id="accordion">
+						<!-- checkout-step-01  -->
+<div class="panel panel-default checkout-step-01">
+
+	<!-- panel-heading -->
+		<div class="panel-heading">
+    	<h4 class="unicase-checkout-title">
+	        <a data-toggle="collapse" class="" data-parent="#accordion" href="#collapseOne">
+	          <span>1</span>Checkout Method
+			</a>
+	     </h4>
+    </div>
+    <!-- panel-heading -->
+
+	<div id="collapseOne" class="panel-collapse collapse in">
+
+		<!-- panel-body  -->
+	    <div class="panel-body">
+			<div class="row">		
+                <div class="col-md-12 col-sm-12">
+                    <h4 class="checkout-subtitle">Order Details</h4>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul style="margin-bottom: 5px;">
+                                <li>Upload the <b>Zip Design</b>  that you Download From Previous Page</li>
+                            </ul>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 form-group">
+                                <label for="">Quantity</label>
+								{{form.quantity}}
+                                <!-- {% render_field form.quantity type="number" placeholder="Quantity" class="form-control" required="" %} -->
+                                <p><input type="number" style="display: none;" id="id_quantity" name="quantity" value="0" min="0"></p>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="">Upload Desing (.zip File)</label>
+								{{form.stuff}}
+                                <!-- {% render_field form.stuff type="file"  id="zipFileInput" accept=".zip" onchange="validateFileType(this)" class="form-control" required="" %} -->
+                                <script>
+                                    function validateFileType(input) {
+                                        const allowedExtensions = ['zip'];
+                                        const file = input.files[0];
+                                        const fileName = file.name.toLowerCase();
+                                        const fileExtension = fileName.split('.').pop();
+                                    
+                                        if (!allowedExtensions.includes(fileExtension)) {
+                                            alert('Please select a .zip file.');
+                                            input.value = ''; // Clear the file input
+                                        }
+                                    }
+                                    </script>
+                            </div>
+                        </div>
+
+                       
+                    </div>
+                </div>
+
+
+               
+				<div class="col-md-12 col-sm-12 guest-login">
+					<h4 class="checkout-subtitle">Billing Address</h4>
+					<div class="row">
+						<div class="form-row">
+							<div class="col-md-6 form-group">
+								<label for="">First Name</label>
+                                {% render_field form.first_name type="text" placeholder="First Name" class="form-control" required="" %}
+							</div>
+							<div class="col-md-6 form-group">
+								<label for="">Last Name</label>
+                                {% render_field form.last_name type="text" placeholder="Last Name" class="form-control" required="" %}
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-md-6 form-group">
+								<label for="">Email</label>
+                                {% render_field form.email type="text" placeholder="Email" class="form-control" required="" %}
+							</div>
+							<div class="col-md-6 form-group">
+								<label for="">Phone Number <i style="font-weight:400 ;">(Add Whatsapp Number if Possible)</i></label>
+                                {% render_field form.phone type="tel" placeholder="Phone Number" class="form-control" required="" %}
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-md-6 form-group">
+								<label for="">Address Line 1</label>
+                                {% render_field form.address_line_1 type="text" placeholder="Address Line 1" class="form-control" required="" %}
+							</div>
+							<div class="col-md-6 form-group">
+								<label for="">Address Line 2</label>
+                                {% render_field form.address_line_2 type="text" placeholder="Address Line 2" class="form-control" required="" %}
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-md-4 form-group">
+								<label for="">City</label>
+                                {% render_field form.city type="text" placeholder="City" class="form-control" required="" %}
+							</div>
+							<div class="col-md-4 form-group">
+								<label for="">State</label>
+                                {% render_field form.state type="text" placeholder="State" class="form-control" required="" %}
+							</div>
+							<div class="col-md-4 form-group">
+								<label for="">Country</label>
+                                {% render_field form.country type="text" placeholder="Country" class="form-control" required="" %}
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-md-12 form-group">
+								<label for="">Order Note</label>
+                                {% render_field form.order_note  %}
+								<!-- <textarea name="order_note" rows="2" class="form-control"></textarea> -->
+							</div>
+						</div>
+					</div>
+					
+
+					
+				</div>
+				<!-- guest-login -->
+
+					
+
+			</div>			
+		</div>
+		<!-- panel-body  -->
+
+	</div><!-- row -->
+</div>
+<!-- checkout-step-06  -->
+					  	
+					</div><!-- /.checkout-steps -->
+				</div>
+<div class="col-xs-12 col-sm-6 col-md-6 sidebar">
+					<!-- checkout-progress-sidebar -->
+<div class="checkout-progress-sidebar ">
+	<div class="panel-group">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+		    	<h4 class="unicase-checkout-title">Your Checkout Progress</h4>
+		    </div>
+		    <div class="">
+				<ul class="nav nav-checkout-progress list-unstyled">
+					
+						<li>
+							<div class="cart-sub-total">
+								Subtotal<span class="inner-left-md" style="font-weight: bold;float: right;" id="total-price">0</span>
+							</div>
+							<div class="cart-sub-total">
+								Tax<span class="inner-left-md" style="font-weight: bold;float: right;" id="tax">0</span>
+							</div>
+							<div class="cart-grand-total">
+								Grand Total<span class="inner-left-md" style="font-weight: bold;float: right;" id="total-amount-with-tax">0</span>
+							</div>
+
+
+						</li>
+						<hr>
+						
+						<li>
+							<button type="submit" class="btn btn-primary">
+								Place Order
+							  </button>
+							  
+							  <!-- Modal -->
+							
+								
+						</li>
+				
+					
+				</ul>		
+			</div>
+		</div>
+	</div>
+</div> 
+<!-- checkout-progress-sidebar -->				</div>
+			</div><!-- /.row -->
+		</div><!-- /.checkout-box -->
+
+
+		</form>
+</div>
+
+
+{% include "includes/footer.html" %}
+
+
+
+<script src="{% static 'assets/js/jquery-1.11.1.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap-hover-dropdown.min.js' %}"></script>
+<script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'assets/js/echo.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.easing-1.3.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap-slider.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.rateit.min.js' %}"></script>
+<script src="{% static 'assets/js/lightbox.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap-select.min.js' %}"></script>
+<script src="{% static 'assets/js/wow.min.js' %}"></script>
+<script src="{% static 'assets/js/scripts.js' %}"></script>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+
+$(document).ready(function() {
+    $('#id_quantity').val(0);
+
+    $('#id_quantity').change(function() {
+        var quantity = $(this).val();
+        var productId = "{{ product.id }}";
+        $.ajax({
+            url: "{% url 'calculate_total_price' %}",
+            data: {
+                'product_id': productId,
+                'quantity': quantity
+            },
+            dataType: 'json',
+            success: function(data) {
+                var totalPrice = parseFloat(data.total_price).toFixed(0);
+                var totalAmountWithTax = parseFloat(data.total_amount_with_tax).toFixed(2);
+                var tax = parseFloat(data.tax).toFixed(0);
+
+                $('#total-price').text(`${totalPrice} PKR`);
+                $('#tax').text(`${tax} PKR`);
+                $('#total-amount-with-tax').text(`${totalAmountWithTax} PKR`);
+            }
+        });
+    });
+
+    $('form').submit(function(e) {
+        var quantity = $('#id_quantity').val();
+        if (quantity <= 0) {
+            alert('Quantity must be 1 or greater.');
+            e.preventDefault(); 
+        }
+    });
+});
+
+
+
+
+</script>
+</body>
+
+</html>

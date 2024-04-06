@@ -1,0 +1,82 @@
+{% extends "baseTwo.html" %}
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
+<div class="container">
+    <h1 class="text-center">
+        Payment Methods
+    </h1>
+</div>
+
+<div class="container">
+    <div class="panel-group" id="accordion">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Internet Banking</a>
+          </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse in">
+          <div class="panel-body">Transactions done via Internet Banking – UnionPay Card involves multiple parties that will complete the transaction cycle, they are            .</div>
+            <div class="panel-body">
+                <h5>Bank Payment</h5>
+                <ol>
+                    <li>Meezan Bank</li>
+                </ol>
+            <p><b>
+                The transaction flow is as follows:
+            </b></p>
+            <ol>
+                <li>
+                    Add your favourite product(s) in cart to buy & Proceed for checkout.
+                </li>
+                <li>
+                    If you already have account on our website than login or create new account and add your shipping details.
+                </li>
+                <li>
+                    Select “Meezan Bank” and Choose Payment option in drop box.
+
+                </li>
+                <li>
+                    After that you will see bank detail their. Simply Sent Cash on Our Bank Detail and Sent Payment on Given Number
+                </li>
+                <li>
+                    After Payment Confirmation. Your Order will be Placeed
+                </li>
+            </ol>
+
+            </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Cash On Delivery (COD)</a>
+          </h4>
+        </div>
+        <div id="collapse2" class="panel-collapse collapse">
+          <div class="panel-body">We are offering COD payment method on orders.</div>
+          <div class="panel-body">
+            <ul>
+                <li>
+                    Pros for COD method are that checkout is quick and you have peace of mind to pay cash on delivery to reduce risk of fraud.
+                </li>
+                <li>
+                    Cons for COD method are that you can’t order more than certain limit of amount & weight. Delivery charges for COD shipments are also higher than standard shipping charges.
+                </li>
+            </ul>
+
+            <p>
+                It’s advised if you are new shopper and have trust issues use COD method. But for big amount & bulky items purchase use other payment methods.
+
+
+            </p>
+
+          </div>
+        </div>
+      </div>
+      
+    </div> 
+  </div>
+
+{% endblock content %}

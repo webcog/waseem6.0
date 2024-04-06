@@ -1,0 +1,227 @@
+{% load static %}
+<header class="header-style-1">
+
+    <!-- ============================================== TOP MENU ============================================== -->
+    <div class="top-bar animate-dropdown">
+      <div class="container">
+        <div class="header-top-inner">
+          <div class="cnt-account">
+            <ul class="list-unstyled">
+            {% if request.user.is_anonymous %}
+            <li class="login"><a href="{% url 'login' %}"><span>Login</span></a></li>
+            <li class="login"><a href="{% url 'register' %}"><span>Register</span></a></li>
+            {% else %}
+            <li class="myaccount"><a href="{% url 'dashboard' %}"><span>My Account</span></a></li>
+            <li class="login"><a href="{% url 'logout' %}"><span>Logout</span></a></li>
+            {% endif %}
+            
+            </ul>
+          </div>
+          <!-- /.cnt-account -->
+  
+          <div class="cnt-block">
+            <ul class="list-unstyled list-inline">
+              
+              
+              <li class="dropdown dropdown-small lang"> <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span class="value">Language </span><b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li>
+                      <div id="google_element"></div>
+                      <script src="http://translate.google.com/translate_a/element.js?cb=loadGoogleTranslate"></script>
+                      <script>
+                        function loadGoogleTranslate(){
+                          new google.translate.TranslateElement(
+                            'google_element'
+                          )
+                        }
+                      </script>
+                      
+                    </li>
+                </ul>
+              </li>
+
+
+            </ul>
+            <!-- /.list-unstyled -->
+          </div>
+          <!-- /.cnt-cart -->
+          <div class="clearfix"></div>
+        </div>
+        <!-- /.header-top-inner -->
+      </div>
+      <!-- /.container -->
+    </div>
+    <!-- /.header-top -->
+    <!-- ============================================== TOP MENU : END ============================================== -->
+    <div class="main-header">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
+            <!-- ============================================================= LOGO ============================================================= -->
+            <div class="logo"> <a href="{% url 'home' %}"> <img src="{% static 'assets/images/wlogo.png' %}" width="120" height="" alt="logo"> </a> </div>
+            <!-- /.logo -->
+            <!-- ============================================================= LOGO : END ============================================================= --> </div>
+          <!-- /.logo-holder -->
+  
+          <div class="col-lg-7 col-md-6 col-sm-8 col-xs-12 top-search-holder">
+            <!-- /.contact-row -->
+            <!-- ============================================================= SEARCH AREA ============================================================= -->
+            <div class="search-area">
+              <form action="{% url 'search' %}" method="GET">
+                <div class="control-group">
+                  <ul class="categories-filter animate-dropdown">
+                    <li class="dropdown"> <a class="dropdown-toggle"  data-toggle="dropdown" href="">Categories <b class="caret"></b></a>
+                      <ul class="dropdown-menu" role="menu" >
+                        <li class="menu-header">All</li>
+                        {% for parent in main_categories %}
+                        <li role="presentation"><a role="menuitem" tabindex="-1" >- {{parent.name}}</a></li>
+                        {% endfor %}
+                        </ul>
+                    </li>
+                  </ul>
+                  
+                  <input type="search"  name="keyword" class="search-field" placeholder="Search here..." />
+                  <button type="submit" class="search-button" href="#" ></button>
+                 </div>
+              </form>
+            </div>
+            <!-- /.search-area -->
+            <!-- ============================================================= SEARCH AREA : END ============================================================= --> </div>
+          <!-- /.top-search-holder -->
+  
+          <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12 animate-dropdown top-cart-row">
+            <!-- ============================================================= SHOPPING CART DROPDOWN ============================================================= -->
+  
+            <div class="dropdown dropdown-cart"> <a href="#" class="dropdown-toggle lnk-cart" data-toggle="dropdown">
+              <div class="items-cart-inner">
+                <div class="basket">
+                <div class="basket-item-count"><span class="count">{{ cart_count }}</span></div>
+                <div class="total-price-basket"> <span class="lbl">Shopping Cart</span> <span class="value">
+                  {% if cart_count == 0 %}
+                  Empty
+                  {% else %}
+                  PKR {{ total_price }}
+                  {% endif %}
+                
+                </span> </div>
+                </div>
+              </div>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  {% if cart_count == 0 %}
+                  <div class="clearfix cart-total">
+                    <div class="pull-center">
+                        <span class="text">Your Cart is Empty</span>
+                    </div>
+                    <hr>
+                    <a href="{% url 'cart' %}" disabled class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
+                </div>
+                  {% else %}
+                      <div class="clearfix cart-total">
+                          
+                          <div class="pull-center">
+                              <span class="text">Sub Total :</span>
+                              <span class='price'>PKR {{ total_price }}</span>
+                          </div>
+                          <hr>
+                          <a href="{% url 'cart' %}" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
+                      </div>
+                  {% endif %}
+              </li>
+              </ul>
+              <!-- /.dropdown-menu-->
+            </div>
+            <!-- /.dropdown-cart -->
+  
+            <!-- ============================================================= SHOPPING CART DROPDOWN : END============================================================= --> </div>
+          <!-- /.top-cart-row -->
+        </div>
+        <!-- /.row -->
+  
+      </div>
+      <!-- /.container -->
+  
+    </div>
+    <!-- /.main-header -->
+  
+    <!-- ============================================== NAVBAR ============================================== -->
+    <div class="header-nav animate-dropdown">
+      <div class="container">
+        <div class="yamm navbar navbar-default" role="navigation">
+          <div class="navbar-header">
+         <button data-target="#mc-horizontal-menu-collapse" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+         <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+          </div>
+          <div class="nav-bg-class">
+            <div class="navbar-collapse collapse" id="mc-horizontal-menu-collapse">
+              <div class="nav-outer">
+                <ul class="nav navbar-nav">
+                  <li class="active dropdown"> <a href="{% url 'home' %}">Home</a> </li>
+
+                 
+                
+             
+              
+
+
+              <!-- In base.html -->
+
+{% for main_category in main_categories %}
+<li class="dropdown yamm mega-menu">
+    <a href="#" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">{{ main_category.name }}</a>
+    <ul class="dropdown-menu container">
+        <li>
+            <div class="yamm-content">
+                <div class="row">
+                    {% for parent_category in main_category.parentcategory_set.all %}
+                    <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
+                        <h2 class="title">{{ parent_category.name }}</h2>
+                        <ul class="links">
+                            {% for child_category in parent_category.childcategory_set.all %}
+                            <li><a href="{{ child_category.get_url }}">{{ child_category.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endfor %}
+                    <!-- ... -->
+                </div>
+            </div>
+        </li>
+    </ul>
+</li>
+{% endfor %}
+
+                
+                
+                
+                 <li class=" dropdown"> <a href="{% url 'store' %}">Shop All</a> </li>
+                <li class=" dropdown"> <a href="{% url 'customkit' %}">Create Your Own</a> </li>
+                <li class=" dropdown"> <a href="{% url 'video_list' %}">Tutorials</a> </li>
+
+               
+                  
+                 
+               
+                  <li class="dropdown  navbar-right special-menu"> <a href="#">Get 30% off on selected items</a> </li>
+                </ul>
+                <!-- /.navbar-nav -->
+                <div class="clearfix"></div>
+              </div>
+              <!-- /.nav-outer -->
+            </div>
+            <!-- /.navbar-collapse -->
+  
+          </div>
+          <!-- /.nav-bg-class -->
+        </div>
+        <!-- /.navbar-default -->
+      </div>
+      <!-- /.container-class -->
+  
+    </div>
+    <!-- /.header-nav -->
+    <!-- ============================================== NAVBAR : END ============================================== -->
+  
+  </header>
+  

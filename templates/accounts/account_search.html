@@ -1,0 +1,119 @@
+{% extends 'baseThree.html' %}
+
+{% block content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<section class="section-conten padding-y bg">
+    {% include 'includes/alerts.html' %}
+    <div class="container">
+        <div class="row">
+            <main class="col-md-12">
+               <div class="row">
+
+                <div class="col-md-6">
+                    <form method="get"  action="{% url 'account_search' %}">
+                    <div class="btn-group" style="display: flex;">
+                        
+                            <input type="search" name="q" value="{{ query }}"  style="padding:20px;border-radius: 5px 0 0 5px;" placeholder="Search by Name, Email, Phone, Username" class="form-control">
+                            <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                    </div>
+                    </form>
+                </div>
+                   <div class="col-md-6">
+                    <div style="display: flex;justify-content: end;">
+                        <a href="{% url 'download_excel' %}" id="" class="btn btn-primary">
+                            Download All
+                        </a>
+                        <script>
+                            document.getElementById('downloadButton').addEventListener('click', function() {
+                              // Call a function to send a request to the server
+                              // This function will be implemented in the next step
+                              sendDataToServer();
+                            });
+                        
+                            function sendDataToServer() {
+                              // Use AJAX or Fetch API to send a request to the Django server
+                              // Implement this based on your needs
+                              // Example using Fetch API:
+                              fetch('/download-excel/')
+                                .then(response => response.blob())
+                                .then(blob => {
+                                  // Create a link element and trigger a download
+                                  const url = window.URL.createObjectURL(new Blob([blob]));
+                                  const a = document.createElement('a');
+                                  a.href = url;
+                                  a.download = 'data.xlsx';
+                                  document.body.appendChild(a);
+                                  a.click();
+                                  window.URL.revokeObjectURL(url);
+                                });
+                            }
+                          </script>
+                    </div>
+                    </div>
+               </div>
+               <br>
+                <article class="card">
+                    <header class="card-header">
+                        <strong class="d-inline-block mr-3">Your Customers:</strong>
+                        
+                    </header>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Profile</th>
+                                            <th scope="col">Full Name</th>
+                                            <th scope="col">Phone</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Date Join</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if results %}
+                                          
+                                        {% for i in results %}
+                                        <tr>
+                                            <th scope="row">
+                                                <a>
+                                                    <img src="{{ i.profile_picture.url }}" style="height:40px;width:40px;">
+                                                </a>
+                                            </th>
+                                            <td>{{ i.full_name }}</td>
+                                            <td>
+                                                {% if i.phone_number %}
+                                                <a href="tel:{{ i.phone_number }}">
+                                                    {{ i.phone_number }}
+                                                </a>
+                                                {% else %}
+                                                No Record Found
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <a href="mailto:{{ i.email }}">
+                                                    {{ i.email }}
+                                                </a>
+                                            </td>
+                                            <td>{{ i.date_joined|date:"d-M-Y : h:m" }}</td>
+                                        </tr>
+                                        
+                                        {% endfor %}
+
+                                        {% else %}
+                                        <p class="text-center">
+                                           <b> Nothing Found</b>
+                                        </p>
+                                        
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div> <!-- row.// -->
+                    </div> <!-- card-body .// -->
+                </article> <!-- order-group.// -->
+            </main>
+        </div> <!-- row.// -->
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'baseThree.html' %}
+
+{% block content %}
+<section class="section-conten padding-y bg">
+  {% include 'includes/alerts.html' %}
+  <div class="container">
+    <div class="row">
+      <main class="col-md-12">
+        <article class="card">
+          <header class="card-header" style="padding: 8px;margin-bottom: 10px;">
+            <strong class="d-inline-block mr-3">Your Orders:</strong>
+            
+        </header>
+          <div class="card-body">
+            <div class="table-responsive"> <!-- Add this class to make the table responsive -->
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Order #</th>
+                    <th scope="col">Billing Name</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Order Total</th>
+                    <th scope="col">Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for order in orders %}
+                  <tr>
+                    <th scope="row"><a href="{% url 'order_detail' order.order_number %}">{{ order.order_number }}</a></th>
+                    <td>{{ order.full_name }}</td>
+                    <td>{{ order.phone }}</td>
+                    <td>RS {{ order.order_total }}</td>
+                    <td>{{ order.created_at }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div> <!-- card-body .// -->
+        </article> <!-- order-group.// -->
+      </main>
+    </div> <!-- row.// -->
+  </div>
+</section>
+{% endblock %}

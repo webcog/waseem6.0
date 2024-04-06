@@ -1,0 +1,136 @@
+ <!-- ============================================== SIDEBAR ============================================== -->
+
+        <!-- ================================== TOP NAVIGATION ================================== -->
+        <div class="side-menu animate-dropdown outer-bottom-xs">
+            <div class="head"><i class="icon fa fa-align-justify fa-fw"></i> Categories</div>
+            <nav class="yamm megamenu-horizontal">
+             
+
+              <ul class="nav">
+                {% for main_category in main_categories %}
+                <li class="dropdown menu-item">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="{{ main_category.icon }}" aria-hidden="true"></i>{{ main_category.name }}
+                    </a>
+                    <ul class="dropdown-menu mega-menu">
+                        <li class="yamm-content">
+                            <div class="row">
+                                {% for parent_category in main_category.parentcategory_set.all %}
+                                <div class="col-sm-12 col-md-3">
+                                    <ul class="links list-unstyled">
+                                        <h4>{{ parent_category.name }}</h4>
+                                        {% for child_category in parent_category.childcategory_set.all %}
+                                        <li><a href="{{ child_category.get_url }}">{{ child_category.name }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                {% endfor %}
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </li>
+                        <!-- /.yamm-content -->
+                    </ul>
+                    <!-- /.dropdown-menu -->
+                </li>
+                {% endfor %}
+                <!-- /.menu-item -->
+            </ul>
+            <!-- /.nav -->
+
+            
+              <!-- /.nav -->
+            </nav>
+            <!-- /.megamenu-horizontal -->
+          </div>
+          <!-- /.side-menu -->
+          <!-- ================================== TOP NAVIGATION : END ================================== -->
+  
+          <!-- ============================================== SPECIAL OFFER : END ============================================== -->
+          <!-- ============================================== PRODUCT TAGS ============================================== -->
+          <div class="sidebar-widget product-tag">
+            <h3 class="section-title">Product tags</h3>
+            <div class="sidebar-widget-body outer-top-xs">
+              <div class="tag-list"> <a class="item" title="Phone" href="store/search/?keyword=phone">Phone</a> <a class="item" title="Vest" href="store/search/?keyword=vest">Vest</a> <a class="item" title="Smartphone" href="store/search/?keyword=smartphone">Smartphone</a> <a class="item" title="Furniture" href="store/search/?keyword=furniture">Furniture</a> <a class="item" title="T-shirt" href="store/search/?keyword=tshirt">T-shirt</a> <a class="item" title="Sweatpants" href="store/search/?keyword=sweatpants">Sweatpants</a> <a class="item" title="Sneaker" href="store/search/?keyword=sneaker">Sneaker</a> <a class="item" title="Toys" href="store/search/?keyword=toys">Toys</a> <a class="item" title="Rose" href="store/search/?keyword=rose">Rose</a> </div>
+              <!-- /.tag-list -->
+            </div>
+            <!-- /.sidebar-widget-body -->
+          </div>
+          <!-- /.sidebar-widget -->
+          <!-- ============================================== PRODUCT TAGS : END ============================================== -->
+          <!-- ============================================== SPECIAL DEALS ============================================== -->
+  
+          <div class="sidebar-widget outer-bottom-small">
+            <h3 class="section-title">Special Deals</h3>
+            <div class="sidebar-widget-body outer-top-xs">
+              <div class="owl-carousel sidebar-carousel special-offer custom-carousel owl-theme outer-top-xs">
+                <div class="item">
+                  <div class="products special-product">
+                   
+                   
+                   {% for i in products|slice:":4"  %}
+                     
+                    <div class="product">
+                      <div class="product-micro">
+                        <div class="row product-micro-row">
+                          <div class="col col-xs-5">
+                            <div class="product-image">
+                              <div class="image"> <a href="{{i.get_url}}"> <img src="{{i.images.url}}"  alt=""> </a> </div>
+                              <!-- /.image -->
+  
+                            </div>
+                            <!-- /.product-image -->
+                          </div>
+                          <!-- /.col -->
+                          <div class="col col-xs-7">
+                            <div class="product-info">
+                              <h3 class="name"><a href="{{i.get_url}}">{{i.product_name}}</a></h3>
+                              <div class="rating rateit-small"></div>
+                              <div class="product-price"> <span class="price"> PKR{{i.price}} </span> </div>
+                              <!-- /.product-price -->
+  
+                            </div>
+                          </div>
+                          <!-- /.col -->
+                        </div>
+                        <!-- /.product-micro-row -->
+                      </div>
+                      <!-- /.product-micro -->
+  
+                    </div>
+                   
+
+                   {% endfor %}
+
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+            <!-- /.sidebar-widget-body -->
+          </div>
+          <!-- /.sidebar-widget -->
+          <!-- ============================================== SPECIAL DEALS : END ============================================== -->
+          <!-- ============================================== NEWSLETTER ============================================== -->
+          <div class="sidebar-widget newsletter outer-bottom-small">
+            <h3 class="section-title">Newsletters</h3>
+            <div class="sidebar-widget-body outer-top-xs">
+              <p>Sign Up for Our Newsletter!</p>
+              <form>
+                <div class="form-group">
+                  <label class="sr-only" for="exampleInputEmail1">Email address</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Subscribe to our newsletter">
+                </div>
+                <button class="btn btn-primary">Subscribe</button>
+              </form>
+            </div>
+            <!-- /.sidebar-widget-body -->
+          </div>
+          <!-- /.sidebar-widget -->
+          <!-- ============================================== NEWSLETTER: END ============================================== -->
+  
+         
+  
+  <!--       /.sidemenu-holder -->
+        <!-- ============================================== SIDEBAR : END ============================================== -->
+  

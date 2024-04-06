@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<!-- Meta -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="keywords" content="MediaCenter, Template, eCommerce">
+<meta name="robots" content="all">
+<title>{% block title %}{% endblock title %} - Tie</title>
+
+<!-- Bootstrap Core CSS -->
+<link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+
+<!-- Customizable CSS -->
+<link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/blue.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/owl.carousel.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/owl.transitions.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/rateit.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/bootstrap-select.min.css' %}">
+
+<!-- Icons/Glyphs -->
+<link rel="stylesheet" href="{% static 'assets/css/font-awesome.css' %}">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Barlow:200,300,300i,400,400i,500,500i,600,700,800" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,600italic,700,700italic,800' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+</head>
+<body class="cnt-home">
+<!-- ============================================== HEADER ============================================== -->
+{% include 'includes/navbar.html' %}
+<br><br>
+
+<style>
+  /* Styles for the WhatsApp icon */
+.whatsapp-icon {
+  position: fixed;
+  bottom: 20px; /* Adjust as needed */
+  right: 20px; /* Adjust as needed */
+  z-index: 9999; /* Ensure it's above other content */
+}
+
+.whatsapp-icon i {
+  font-size: 40px; /* Adjust icon size as needed */
+  color: #25D366; /* WhatsApp icon color */
+}
+
+</style>
+<a href="https://wa.me/923016543034" class="whatsapp-icon" target="_blank">
+  <i class="fa fa-whatsapp"></i> 
+</a>
+<!-- ============================================== HEADER : END ============================================== -->
+<div class="body-content outer-top-vs my-5" id="top-banner-and-menu">
+  <div class="container">
+    <div class="row">
+         <div class="col-xs-12 col-sm-12 col-md-3 sidebar">
+           {% include 'includes/dashboard_sidebar.html' %}
+         </div>
+         <div  class="col-xs-12 col-sm-12 col-md-9 section-content">
+           {% block content %}{% endblock content %}
+          </div>
+       
+    </div>
+  </div>
+</div>
+<!-- ============================================================= FOOTER ============================================================= -->
+{% include 'includes/footer.html' %}
+
+<!-- ============================================================= FOOTER : END============================================================= -->
+
+<!-- For demo purposes – can be removed on production -->
+
+<!-- For demo purposes – can be removed on production : End -->
+
+<!-- JavaScripts placed at the end of the document so the pages load faster -->
+<script src="{% static 'assets/js/jquery-1.11.1.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap-hover-dropdown.min.js' %}"></script>
+<script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'assets/js/echo.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.easing-1.3.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap-slider.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.rateit.min.js' %}"></script>
+<script src="{% static 'assets/js/lightbox.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap-select.min.js' %}"></script>
+<script src="{% static 'assets/js/wow.min.js' %}"></script>
+<script src="{% static 'assets/js/scripts.js' %}"></script>
+</body>
+
+</html>

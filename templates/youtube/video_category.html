@@ -1,0 +1,198 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<!-- Meta -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="keywords" content="MediaCenter, Template, eCommerce">
+<meta name="robots" content="all">
+<title>{% block title %}{% endblock title %} - Tie</title>
+
+<!-- Bootstrap Core CSS -->
+<link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+
+<!-- Customizable CSS -->
+<link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/blue.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/owl.carousel.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/owl.transitions.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/rateit.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/bootstrap-select.min.css' %}">
+<link href="{% static 'assets/css/lightbox.css' %}" rel="stylesheet">
+
+<!-- Icons/Glyphs -->
+<link rel="stylesheet" href="{% static 'assets/css/font-awesome.css' %}">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Barlow:200,300,300i,400,400i,500,500i,600,700,800" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,600italic,700,700italic,800' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+</head>
+<body class="cnt-home">
+
+
+
+{% include "includes/navbar.html" %}
+
+
+
+
+<div class="breadcrumb">
+  <div class="container">
+    <div class="breadcrumb-inner">
+      <ul class="list-inline list-unstyled">
+        <li><a href="{% url 'home' %}">Home</a></li>
+
+        <li class='active'>Tutorials</li>
+      </ul>
+    </div>
+    <!-- /.breadcrumb-inner --> 
+  </div>
+  <!-- /.container --> 
+</div>
+<!-- /.breadcrumb -->
+<div class="body-content outer-top-xs">
+  <div class='container'>
+    <div class='row'>
+      <div class='col-xs-12 col-sm-12 col-md-3 sidebar'> 
+        <!-- ================================== TOP NAVIGATION ================================== -->
+      
+        <!-- ================================== TOP NAVIGATION : END ================================== -->
+        <div class="sidebar-module-container">
+          <div class="sidebar-filter"> 
+            <!-- ============================================== SIDEBAR CATEGORY ============================================== -->
+            <div class="sidebar-widget">
+              <h3 class="section-title">All Tutorials</h3>
+              <div class="widget-header">
+                <h4 class="widget-title">Category</h4>
+              </div>
+              <div class="sidebar-widget-body">
+                <div class="accordion">
+                  {% for main_category in categories %}
+                  <div class="accordion-group">
+                      <div class="accordion-heading">
+                          <a href="{% url 'video_category' main_category.id %}"  class="accordion-toggle collapsed">{{ main_category.category_name }}</a>
+                      </div>
+                      
+                      <!-- /.accordion-body -->
+                  </div>
+                  {% endfor %}
+              </div>
+              
+                <!-- /.accordion --> 
+              </div>
+              <!-- /.sidebar-widget-body --> 
+            </div>
+            <!-- /.sidebar-widget --> 
+            <!-- ============================================== SIDEBAR CATEGORY : END ============================================== --> 
+            
+            <!-- ============================================== PRICE SILDER============================================== -->
+            <div class="sidebar-widget">
+             
+              <div class="sidebar-widget-body m-t-10">
+                
+                <!-- /.price-range-holder --> 
+                <a href="{% url 'video_list' %}" class="lnk btn btn-primary">View All</a> 
+            </div>
+              <!-- /.sidebar-widget-body --> 
+            </div>
+            <!-- /.sidebar-widget --> 
+            <!-- ============================================== COMPARE: END ============================================== --> 
+            <!-- ============================================== PRODUCT TAGS ============================================== -->
+          
+            <!-- /.sidebar-widget --> 
+          
+             <!-- ============================================== NEWSLETTER ============================================== -->
+            
+           
+          </div>
+          <!-- /.sidebar-filter --> 
+        </div>
+        <!-- /.sidebar-module-container --> 
+      </div>
+      <!-- /.sidebar -->
+      <div class="col-xs-12 col-sm-12 col-md-9 rht-col"> 
+        <!-- ========================================== SECTION – HERO ========================================= -->
+        <style>
+            .yt-vi-butt:hover{
+                background: red !important;
+            }
+        </style>
+
+            <div class="container">
+        <h3 style="text-align: center;margin-bottom: 30px;">{{category}}</h3>
+                <div class="row">
+                   
+                   {% if videos %}
+                     
+                    {% for i in videos %}
+                        
+                        <div class="col-md-6"  style="box-shadow: 5px 5px 10px #d8d8d842;">
+                            <div class="card">
+                                <a href="{{i.embed_code}}" target="_blank">
+                                    <img src="{{i.thumbnail.url}}" class="card-img-top img-responsive" style="width: 100%;" alt="{{i.title}}">
+                                </a>
+                                <div class="card-body">
+                                  <h3 class="card-title"><a href="{{i.embed_code}}" target="_blank"  style="color: black;">{{i.title}}</a></h3>
+                                  <span><b>Category:</b> {{i.category}}</span>
+                                  <span style="float: right;color: black;font-weight: bold;">{{i.date_added|date:'M d, Y'}}</span>
+                                  <br>
+                                  <br>
+                                  <div class="text-center">
+                                      <a href="{{i.embed_code}}"  target="_blank" style="background: transparent;border: 1px solid red;border-radius: 0;color:#000;cursor: pointer;" class="btn btn-primary yt-vi-butt"><i class="fa fa-youtube-play"></i> Watch Video</a>
+                                    </div>
+                                </div>
+                              </div>
+                        </div>
+
+                    {% endfor %}
+
+                    {% else %}
+                    <h1>No Tutorials Available</h1>
+                   {% endif %}
+                </div>
+            </div>    
+        
+        
+      </div>
+      <!-- /.col --> 
+    </div>
+    <!-- /.row --> 
+    <!-- ============================================== BRANDS CAROUSEL ============================================== -->
+ 
+    <!-- ============================================== BRANDS CAROUSEL : END ============================================== --> </div>
+  <!-- /.container --> 
+  
+</div>
+<!-- /.body-content --> 
+
+
+
+<br>
+
+
+{% include "includes/footer.html" %}
+
+
+
+<script src="{% static 'assets/js/jquery-1.11.1.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap-hover-dropdown.min.js' %}"></script>
+<script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'assets/js/echo.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.easing-1.3.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap-slider.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.rateit.min.js' %}"></script>
+<script src="{% static 'assets/js/lightbox.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap-select.min.js' %}"></script>
+<script src="{% static 'assets/js/wow.min.js' %}"></script>
+<script src="{% static 'assets/js/scripts.js' %}"></script>
+</body>
+
+</html>

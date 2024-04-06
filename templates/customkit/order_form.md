@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container" style="margin-top: 50px; margin-bottom: 50px;">
+    <div class="row invoice row-printable">
+      <div class="col-md-9 col-sm-12 col-xs-12">
+        <div class="panel panel-default plain" id="dash_0">
+          <div class="panel-body p30">
+            <div class="row">
+              <div class="col-md-6 col-sm-6 col-xs-12"> <!-- Adjusted column sizes for responsiveness -->
+                <div class="invoice-logo">
+                  <h2>
+                    <span class="text-secondary">Waseem</span><span class="text-primary"> Int</span>
+                  </h2>
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12"> <!-- Adjusted column sizes for responsiveness -->
+                <div class="invoice-from">
+                  <ul class="list-unstyled text-right">
+                    <li><strong>Invoiced To</strong></li>
+                    <li>{{ name }}</li>
+                    <li>{{ address }}</li>
+                    <li>{{ order.city }}, {{ order.state }}</li>
+                    <li>{{ order.country }}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="invoice-details mt25">
+                  <div class="well">
+                    <ul class="list-unstyled mb0">
+                      <li><strong>Order</strong> #{{ order.order_number }}</li>
+                      <li><strong>Order Date:</strong> {{ order.created_at }}</li>
+                      <li><strong>Status:</strong> {{ order.status }}</li>
+                    </ul>
+                  </div>
+                </div>
+  
+                <div class="invoice-items">
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th class="text-center">Products</th>
+                          <th class="text-center">Qty</th>
+                          <th class="text-center">Total</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                              <a href="{% url 'custom_product_detail' order.product.slug %}">{{ product_name }}</a>
+                              <p class="text-muted small"></p>
+                          </td>
+                          <td class="text-center">{{ order.quantity }}</td>
+                          <td class="text-center">{{ product_price }} PKR</td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <th colspan="2" class="text-right">Sub Total:</th>
+                          <th class="text-center">Rs {{ subtotal }} PKR</th>
+                        </tr>
+                        <tr>
+                          <th colspan="2" class="text-right">Tax:</th>
+                          <th class="text-center">Rs {{ order.tax }} PKR</th>
+                        </tr>
+                        <tr>
+                          <th colspan="2" class="text-right">Grand Total:</th>
+                          <th class="text-center">Rs {{ order.order_total }} PKR</th>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+                <div class="invoice-footer mt25">
+                  <p class="text-center">Thank you for shopping with us!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
