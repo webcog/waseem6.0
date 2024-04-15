@@ -148,15 +148,16 @@
       <!-- /.sidebar -->
       <div class="col-xs-12 col-sm-12 col-md-9 rht-col"> 
         <!-- ========================================== SECTION – HERO ========================================= -->
-        
+        {% for i in createbanner|slice:'0:1' %}
+
         <div id="category" class="category-carousel hidden-xs">
           <div class="item">
-            <div class="image"> <img src="{% static 'assets/images/banners/cat-banner-1.jpg' %}" alt="" class="img-responsive"> </div>
+            <div class="image"> <img src=" {{i.image.url}}" alt="" class="img-responsive"> </div>
             <div class="container-fluid">
               <div class="caption vertical-top text-left">
-                <div class="big-text"> Create Your Own</div>
-                <div class="excerpt hidden-sm hidden-md"> Save up to 49% off </div>
-                <div class="excerpt-normal hidden-sm hidden-md">Customized Product According to Your Needs and Order Now..</div>
+                <div class="" style="font-size: 60px;color: #000;"> {{i.title_1}}</div>
+                <div class="excerpt hidden-sm hidden-md"> {{i.title_2}}  </div>
+                <div class="excerpt-normal hidden-sm hidden-md"> {{i.title_3}}</div>
                 <div class="buy-btn"><a href="" class="lnk btn btn-primary">Show Now</a></div>
               </div>
               <!-- /.caption --> 
@@ -164,6 +165,9 @@
             <!-- /.container-fluid --> 
           </div>
         </div>
+
+        {% endfor %}  
+
         
      
         <div class="clearfix filters-container m-t-10">

@@ -20,13 +20,19 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from store.models import ClothingSizePants, ClothingSizeShirts
+from ads.models import CreateYourOwnPagesBanners
+
 # Create your views here.
 
 
 def customkit(request):
     custom_products = CustomProduct.objects.all()
+    createbanner= CreateYourOwnPagesBanners.objects.all().order_by('-id')
+
+
     context = {
-        "custom_products":custom_products
+        "custom_products":custom_products,
+        'createbanner':createbanner,
     }
     return render(request, "customkit/customkit.html", context)
 

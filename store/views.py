@@ -9,6 +9,7 @@ from orders.models import OrderProduct
 from carts.views import _cart_id
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from store.models import ClothingSizePants, ClothingSizeShirts, SizeChart
+from ads.models import ShopAllPagesBanners
 
 
 def store(request, category_slug=None):
@@ -28,7 +29,10 @@ def store(request, category_slug=None):
         page = request.GET.get("page")
         paged_products = paginator.get_page(page)
         product_count = products.count()
-    context = {"products": paged_products, "product_count": product_count}
+    
+    shopbanner= ShopAllPagesBanners.objects.all().order_by('-id')
+
+    context = {"products": paged_products, "product_count": product_count,'shopbanner':shopbanner,}
     return render(request, "store/store.html", context)
 
 

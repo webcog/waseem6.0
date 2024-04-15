@@ -13,6 +13,8 @@ def home(request):
     homepagebanner = HomePageBannersTwo.objects.all().order_by('-id')
     banners = HomePageBannersTwo.objects.all()[:2]  # Get first two banners
 
+
+
     context = {'products': products,
                'reviews': reviews,
                'videos':videos,
